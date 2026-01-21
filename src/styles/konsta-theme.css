@@ -1,0 +1,23 @@
+.ios {
+  --k-color-primary: var(--color-primary);
+  --k-bg-primary: var(--bg-primary);
+  --k-bg-secondary: var(--bg-secondary);
+  --k-text-primary: var(--text-primary);
+  --k-border-color: var(--border-color);
+}
+
+.k-button-large {
+  height: 56px;
+  font-size: var(--font-size-lg);
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-color-light);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  z-index: var(--z-fixed);
+}

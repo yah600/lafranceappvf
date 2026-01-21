@@ -3,139 +3,247 @@
 ## Project Overview
 Full-stack dispatch platform for Groupe G. Lafrance with 8 divisions, urgent bidding system, GPS tracking, and complete payment workflow.
 
-## Completed Tasks
+## ✅ COMPLETED PHASES
 
-### Phase 1: Foundation ✅ COMPLETE
-- [x] Initialized Vite + React project
-- [x] Installed all dependencies
-- [x] Created complete folder structure
-- [x] Set up Vite config with path aliases
-- [x] Created .env with configuration
-- [x] Created CSS design system (variables, animations, Konsta theme)
-- [x] Created division configuration (8 divisions)
-- [x] Created constants file
+### Phase 1: Foundation ✅
+- Project setup with Vite + React
+- All dependencies installed (Konsta UI, Zustand, React Router, date-fns, Recharts, etc.)
+- Complete folder structure
+- Vite config with path aliases
+- Environment variables configured
+- CSS design system (variables, animations, Konsta theme)
+- Division configuration (8 divisions)
+- Constants file
 
-### Phase 2: State Management ✅ COMPLETE
-- [x] Created **authStore** (login, logout, division switching)
-- [x] Created **jobsStore** (CRUD, filtering)
-- [x] Created **biddingStore** (real-time bidding, countdown timers, winner determination)
-- [x] Created **techniciansStore** (CRUD, search, rating updates)
-- [x] Created **clientsStore** (CRUD, search)
-- [x] Created **invoicesStore** (CRUD, revenue calculations)
-- [x] Created **notificationsStore** (add, mark read)
-- [x] Created **uiStore** (modals, drawers, toasts)
+### Phase 2: State Management ✅
+- **authStore** - Authentication, division switching, role checks
+- **jobsStore** - CRUD, filtering by status/division/tech/client
+- **biddingStore** - Real-time bidding, countdown timers, winner determination
+- **techniciansStore** - CRUD, search, availability, rating updates
+- **clientsStore** - CRUD, search
+- **invoicesStore** - CRUD, revenue calculations
+- **notificationsStore** - Real-time notifications
+- **uiStore** - Modals, drawers, toasts, loading states
 
-### Phase 3: Utilities ✅ COMPLETE
-- [x] Created **formatters.js** (currency, dates, phone, distance, addresses)
-- [x] Created **validators.js** (email, phone, licenses, bids, photos)
-- [x] Created **calculators.js** (taxes, payment splits, distances, ETA, earnings)
-- [x] Created **gps.js** (tracking, geofencing, navigation)
-- [x] Created **offlineStorage.js** (IndexedDB for offline mode)
+### Phase 3: Utilities ✅
+- **formatters.js** - Currency, dates, phone, distance, addresses
+- **validators.js** - Email, phone, licenses, bids, photos
+- **calculators.js** - Taxes, payment splits, distances, ETA, earnings
+- **gps.js** - Tracking, geofencing, navigation
+- **offlineStorage.js** - IndexedDB for offline mode
 
-### Phase 4: Mock Data ✅ COMPLETE
-- [x] Created **mockUsers.js** (all roles: admin, division heads, dispatchers, technicians, clients)
-- [x] Created **mockJobs.js** (urgent bidding, scheduled, active, completed jobs)
-- [x] Created **mockTechnicians.js** (5 technicians with different statuses)
-- [x] Created **mockClients.js** (residential & commercial clients)
-- [x] Created **mockInvoices.js** (paid & pending invoices)
+### Phase 4: Mock Data ✅
+- **mockUsers.js** - 11 users (admin, division heads, dispatchers, techs, clients)
+- **mockJobs.js** - 6 jobs (urgent bidding, scheduled, active, completed)
+- **mockTechnicians.js** - 5 technicians with different statuses
+- **mockClients.js** - 5 clients (residential & commercial)
+- **mockInvoices.js** - 4 invoices
 
-### Phase 5: Routing (IN PROGRESS)
-- [ ] Create main App.jsx and main.jsx
-- [ ] Create AppRoutes with all routes
-- [ ] Create ProtectedRoute guard
-- [ ] Create RoleRoute guard
+### Phase 5: Routing & Auth ✅
+- Main App.jsx with Konsta UI and React Query
+- main.jsx entry point
+- Complete routing structure (AppRoutes)
+- ProtectedRoute guard (authentication)
+- RoleRoute guard (authorization)
+- **Login page** - Fully functional with quick login buttons
 
-### Phase 6: Components (PENDING)
+## 🚧 IN PROGRESS
+
+### Phase 6: Components
 - [ ] Layout components (MobileBottomNav, DesktopSidebar, Header)
-- [ ] Common components (Button, Input, Modal, StatusBadge)
+- [ ] Common components (StatusBadge, LoadingSpinner, etc.)
 - [ ] Card components (JobCard, TechnicianCard, BiddingCard)
+- [ ] Bidding components (CountdownTimer, BidInput, BidHistory)
 - [ ] Form components
-- [ ] Bidding components (CountdownTimer, BidInput)
 - [ ] Photo uploader
-- [ ] Signature pad
 - [ ] GPS tracker
 
-### Phase 7: Pages (PENDING)
-- [ ] Public pages (Landing, Login, Signup)
-- [ ] Technician pages (Dashboard, Jobs with 4 tabs, Active Job, Earnings, Profile)
-- [ ] Client pages (Dashboard, Request forms, Job Tracking, Payment, Rating)
-- [ ] Dispatcher pages (Kanban Dashboard, Create Urgent, Assign)
-- [ ] Division Head pages (Dashboard, Analytics)
-- [ ] Admin pages (Overview, All divisions, Compliance)
+### Phase 7: Pages - Priority Order
+1. **Technician App** (HIGHEST PRIORITY)
+   - [ ] Dashboard with urgent jobs & next scheduled
+   - [ ] Jobs page with 4 tabs (Available/Assigned/Active/Completed)
+   - [ ] Bidding interface with countdown
+   - [ ] Active job page with timer & photo uploads
+   - [ ] Earnings page
+   - [ ] Profile page
+
+2. **Client Portal**
+   - [ ] Dashboard
+   - [ ] Urgent request form
+   - [ ] Scheduled request form
+   - [ ] Job tracking with live GPS
+   - [ ] Invoice & payment
+   - [ ] Rating system
+
+3. **Dispatcher Dashboard**
+   - [ ] Kanban board
+   - [ ] Create urgent job (post to bidding)
+   - [ ] Assign scheduled job
+   - [ ] Technicians management
+   - [ ] Clients management
+
+4. **Admin/Division Head**
+   - [ ] Overview dashboard
+   - [ ] Analytics
+   - [ ] Compliance tracking
+   - [ ] Settings
 
 ## Current Status
-**Working on:** Main App component and routing system
-**Next:** Layout components and common UI components
+**✅ MAJOR MILESTONE REACHED:**
+- App compiles and runs successfully
+- Login system fully functional
+- Authentication and routing working
+- All backend logic in place (stores, utilities, mock data)
+
+**Working on:** Technician Dashboard (next priority)
 
 ## Key Features Implemented
-✅ Complete state management with Zustand (8 stores)
-✅ Real-time bidding system with timers and winner determination
-✅ Comprehensive utility functions (formatting, validation, calculations)
-✅ GPS tracking and geofencing logic
-✅ Offline storage with IndexedDB
-✅ Complete mock data for all entities
-✅ Multi-division support with access control
-✅ Payment split logic (75%/25%)
-✅ Tax calculations (GST + QST)
 
-## Architecture Decisions
-- **State Management:** Zustand (persist auth, simple API)
-- **Routing:** React Router v6 with protected routes
+### ✅ Authentication System
+- Login with email/password
+- Mock authentication using mockUsers
+- Auto-navigation based on role
+- Protected routes
+- Role-based access control
+- Persistent sessions (Zustand persist)
+
+### ✅ State Management (8 Stores)
+- Complete CRUD operations
+- Real-time bidding logic
+- Payment calculations
+- GPS tracking state
+- Offline support
+- Notifications
+
+### ✅ Business Logic
+- 75%/25% payment split
+- Holdback release calculations
+- Quebec tax calculations (GST + QST)
+- Bidding winner determination
+- Company profit margins
+- Photo validation rules
+- Geofencing logic
+
+### ✅ Utilities & Helpers
+- Comprehensive formatters
+- Robust validators
+- Complex calculators
+- GPS utilities
+- Offline storage
+
+## Demo Accounts
+
+**Super Admin:**
+- Email: `gabriel@lafrance.com`
+- Password: `admin123`
+- Access: All 8 divisions, system settings
+
+**Division Head (Plomberie):**
+- Email: `michael@lafrance.com`
+- Password: `plomb123`
+- Access: Plomberie division only
+
+**Dispatcher:**
+- Email: `dispatcher@lafrance.com`
+- Password: `dispatch123`
+- Access: Dispatch operations for Plomberie
+
+**Technician:**
+- Email: `marc@lafrance.com`
+- Password: `tech123`
+- Features: View urgent jobs, bid, complete jobs, track earnings
+
+**Client:**
+- Email: `jean.bertrand@example.com`
+- Password: `client123`
+- Features: Request services, track jobs, pay invoices, rate
+
+## Architecture Highlights
+
+### Technology Stack
+- **Frontend:** React 18 (no TypeScript, plain JavaScript per spec)
+- **Build Tool:** Vite 5
 - **UI Library:** Konsta UI (iOS-style components)
-- **Styling:** CSS Variables + Custom CSS (no Tailwind)
-- **Offline Support:** IndexedDB via idb library
-- **Real-time:** Store-based timers for bidding countdown
-- **Mock Data:** Complete dataset ready for UI development
+- **State:** Zustand with persistence
+- **Routing:** React Router v6
+- **Styling:** CSS Variables + Custom CSS (NO Tailwind)
+- **API Cache:** TanStack Query
+- **Offline:** IndexedDB (idb library)
+
+### Design Patterns
+- Mobile-first for technician/client
+- Desktop-first for dispatcher/admin
+- Protected route guards
+- Role-based access control
+- Persistent authentication
+- Offline-first data storage
+- Real-time countdown timers
+
+### Code Organization
+```
+src/
+├── config/          # Divisions, constants
+├── stores/          # Zustand stores (8 total)
+├── utils/           # Formatters, validators, calculators
+├── data/            # Mock data
+├── routes/          # Routing & guards
+├── components/      # Reusable components
+├── pages/           # Page components
+└── styles/          # CSS (variables, animations)
+```
 
 ## Git Commits
 1. Initial commit: Project structure, CSS, stores, config
-2. Utilities and mock data (pending)
+2. Utilities and mock data
+3. Routing system and App structure
+4. Functional Login page with authentication ✅ CURRENT
 
-## Implementation Highlights
+## Next Steps (Prioritized)
 
-### Bidding System
-- 5-minute countdown timers
-- Lowest bid wins (tie-breaker: earliest timestamp)
-- Real-time competitor bids
-- Suggested bid calculations
-- Company profit margin enforcement
+### Immediate (Phase 6 & 7 - Technician App)
+1. Create MobileBottomNav component
+2. Create StatusBadge component
+3. Build Technician Dashboard
+4. Build Jobs page with 4 tabs
+5. Implement CountdownTimer for bidding
+6. Build BidInput component
+7. Build Active Job page with photo uploads
 
-### Payment System
-- 75% immediate payment to technician
-- 25% holdback (default 7 days)
-- Automatic holdback release calculation
-- Quebec tax calculations (GST 5% + QST 9.975%)
+### Short Term (Client App)
+1. Client Dashboard
+2. Request forms (urgent & scheduled)
+3. Job tracking with GPS
+4. Payment interface
+5. Rating system
 
-### GPS & Geofencing
-- Continuous position tracking
-- 100m geofence radius
-- 3-minute geofence duration before auto-start
-- Navigation URL generation
+### Medium Term (Dispatcher/Admin)
+1. Dispatcher Kanban board
+2. Create urgent job flow
+3. Admin overview dashboard
+4. Analytics pages
 
-### Offline Support
-- Job completion data cached
-- Photos saved locally
-- Signatures stored offline
-- Auto-sync when online
+## Success Metrics
+- ✅ Project compiles without errors
+- ✅ All routes accessible
+- ✅ Authentication working
+- ✅ State management functional
+- [ ] Can place a bid on urgent job
+- [ ] Can complete a job with photos
+- [ ] Can track a job in real-time
+- [ ] Can process payment
+- [ ] Can rate a service
 
-### Validation
-- Email, phone, postal code validation
-- License number validation (CMMTQ, RBQ)
-- Bid amount validation
-- Photo count validation based on duration
+## Notes
+- Following spec exactly (Konsta UI, no Tailwind, mobile-first for techs/clients)
+- Real-time bidding with 5-minute countdown
+- Mandatory photo uploads every 45 minutes
+- 75%/25% payment split with holdback
+- Rating required before invoice download
+- 5-star ratings auto-post to Google Reviews (to be implemented)
+- All business logic is in place and working
 
-## Mock Data Stats
-- **Users:** 11 (1 super admin, 2 division heads, 1 dispatcher, 5 technicians, 2 clients)
-- **Jobs:** 6 (2 urgent bidding, 2 scheduled, 1 active, 1 completed)
-- **Technicians:** 5 (available, busy, off-duty)
-- **Clients:** 5 (residential & commercial)
-- **Invoices:** 4 (paid & pending)
+---
 
-## Next Steps
-1. Create main App.jsx with Konsta wrapper
-2. Build routing system with role guards
-3. Create layout components (nav bars, headers)
-4. Build common UI components
-5. Implement technician pages (highest priority)
-6. Implement client pages
-7. Implement dispatcher/admin pages
+**Last Updated:** January 21, 2026
+**Status:** Foundation complete, ready for UI development
+**Lines of Code:** ~5,000+ (excluding node_modules)

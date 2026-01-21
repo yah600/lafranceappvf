@@ -4,6 +4,7 @@ import ProtectedRoute from './ProtectedRoute'
 import RoleRoute from './RoleRoute'
 
 // Public pages
+import Landing from '@pages/public/Landing'
 import Login from '@pages/public/Login'
 
 // Technician pages
@@ -24,7 +25,7 @@ function AppRoutes() {
   const { user, isAuthenticated } = useAuthStore()
 
   const getRootRedirect = () => {
-    if (!isAuthenticated) return '/login'
+    if (!isAuthenticated) return '/landing'
 
     switch (user?.role) {
       case 'super-admin':
@@ -38,7 +39,7 @@ function AppRoutes() {
       case 'client':
         return '/client/dashboard'
       default:
-        return '/login'
+        return '/landing'
     }
   }
 
@@ -46,7 +47,7 @@ function AppRoutes() {
     <Routes>
       {/* Public Routes */}
       <Route path="/" element={<Navigate to={getRootRedirect()} replace />} />
-      <Route path="/landing" element={<Placeholder title="Landing Page" />} />
+      <Route path="/landing" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup/client" element={<Placeholder title="Client Signup" />} />
       <Route path="/signup/technician" element={<Placeholder title="Technician Signup" />} />

@@ -10,12 +10,15 @@ import Login from '@pages/public/Login'
 // Technician pages
 import TechDashboard from '@pages/technician/TechDashboard'
 import TechJobs from '@pages/technician/TechJobs'
+import TechJobActive from '@pages/technician/TechJobActive'
 import TechEarnings from '@pages/technician/TechEarnings'
 import TechProfile from '@pages/technician/TechProfile'
 
 // Client pages
 import ClientDashboard from '@pages/client/ClientDashboard'
 import ClientRequestUrgent from '@pages/client/ClientRequestUrgent'
+import ClientJobTracking from '@pages/client/ClientJobTracking'
+import ClientRating from '@pages/client/ClientRating'
 
 // Dispatcher pages
 import DispatchDashboard from '@pages/dispatcher/DispatchDashboard'
@@ -71,7 +74,7 @@ function AppRoutes() {
               <Routes>
                 <Route path="dashboard" element={<TechDashboard />} />
                 <Route path="jobs" element={<TechJobs />} />
-                <Route path="job/:id/active" element={<Placeholder title="Active Job" />} />
+                <Route path="job/:id/active" element={<TechJobActive />} />
                 <Route path="earnings" element={<TechEarnings />} />
                 <Route path="profile" element={<TechProfile />} />
               </Routes>
@@ -91,10 +94,10 @@ function AppRoutes() {
                 <Route path="request/urgent" element={<ClientRequestUrgent />} />
                 <Route path="request/scheduled" element={<Placeholder title="Scheduled Request" />} />
                 <Route path="jobs" element={<Placeholder title="My Jobs" />} />
-                <Route path="job/:id/tracking" element={<Placeholder title="Job Tracking" />} />
+                <Route path="job/:id/tracking" element={<ClientJobTracking />} />
                 <Route path="invoices" element={<Placeholder title="Invoices" />} />
                 <Route path="invoice/:id/payment" element={<Placeholder title="Payment" />} />
-                <Route path="job/:id/rating" element={<Placeholder title="Rate Service" />} />
+                <Route path="job/:id/rating" element={<ClientRating />} />
                 <Route path="profile" element={<Placeholder title="Profile" />} />
               </Routes>
             </RoleRoute>

@@ -8,6 +8,9 @@ import Login from '@pages/public/Login'
 
 // Technician pages
 import TechDashboard from '@pages/technician/TechDashboard'
+import TechJobs from '@pages/technician/TechJobs'
+import TechEarnings from '@pages/technician/TechEarnings'
+import TechProfile from '@pages/technician/TechProfile'
 
 // Placeholder component for pages we haven't built yet
 const Placeholder = ({ title }) => (
@@ -56,10 +59,10 @@ function AppRoutes() {
             <RoleRoute allowedRoles={['technician']}>
               <Routes>
                 <Route path="dashboard" element={<TechDashboard />} />
-                <Route path="jobs" element={<Placeholder title="Tech Jobs" />} />
+                <Route path="jobs" element={<TechJobs />} />
                 <Route path="job/:id/active" element={<Placeholder title="Active Job" />} />
-                <Route path="earnings" element={<Placeholder title="Earnings" />} />
-                <Route path="profile" element={<Placeholder title="Profile" />} />
+                <Route path="earnings" element={<TechEarnings />} />
+                <Route path="profile" element={<TechProfile />} />
               </Routes>
             </RoleRoute>
           </ProtectedRoute>

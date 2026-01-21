@@ -19,6 +19,8 @@ import ClientDashboard from '@pages/client/ClientDashboard'
 import ClientRequestUrgent from '@pages/client/ClientRequestUrgent'
 import ClientJobTracking from '@pages/client/ClientJobTracking'
 import ClientRating from '@pages/client/ClientRating'
+import ClientInvoices from '@pages/client/ClientInvoices'
+import ClientPayment from '@pages/client/ClientPayment'
 
 // Dispatcher pages
 import DispatchDashboard from '@pages/dispatcher/DispatchDashboard'
@@ -95,8 +97,8 @@ function AppRoutes() {
                 <Route path="request/scheduled" element={<Placeholder title="Scheduled Request" />} />
                 <Route path="jobs" element={<Placeholder title="My Jobs" />} />
                 <Route path="job/:id/tracking" element={<ClientJobTracking />} />
-                <Route path="invoices" element={<Placeholder title="Invoices" />} />
-                <Route path="invoice/:id/payment" element={<Placeholder title="Payment" />} />
+                <Route path="invoices" element={<ClientInvoices />} />
+                <Route path="invoice/:id/payment" element={<ClientPayment />} />
                 <Route path="job/:id/rating" element={<ClientRating />} />
                 <Route path="profile" element={<Placeholder title="Profile" />} />
               </Routes>

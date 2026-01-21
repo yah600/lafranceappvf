@@ -1,0 +1,81 @@
+export const mockClients = [
+  {
+    id: 'client-001',
+    name: 'Jean-Paul Bertrand',
+    phone: '450-555-2001',
+    email: 'jean.bertrand@example.com',
+    address: '45 Rue Principale, Brossard, QC J4X 1A1',
+    type: 'residential',
+    totalSpent: 3250,
+    lastService: '2026-01-20',
+    equipment: [
+      { type: 'Water heater', brand: 'Rheem', model: '50 gal', installDate: '2024-03-15' },
+      { type: 'Toilet', brand: 'American Standard', model: 'Cadet 3', installDate: '2024-03-15' }
+    ],
+    divisions: ['plomberie', 'toitures'],
+    joinedDate: '2024-03-15',
+    notes: 'Client fidèle, excellent paiement',
+  },
+  {
+    id: 'client-002',
+    name: 'Marie Tremblay',
+    phone: '514-555-2002',
+    email: 'marie.tremblay@example.com',
+    address: '123 Boulevard Saint-Laurent, Montréal, QC H2T 1R5',
+    type: 'residential',
+    totalSpent: 800,
+    lastService: '2026-01-21',
+    equipment: [
+      { type: 'Water heater', brand: 'Bradford White', model: '40 gal', installDate: '2025-01-15' }
+    ],
+    divisions: ['plomberie', 'construction'],
+    joinedDate: '2025-01-10',
+    notes: 'Nouveau client',
+  },
+  {
+    id: 'client-003',
+    name: 'Construction ABC Inc.',
+    phone: '514-555-2003',
+    email: 'info@constructionabc.com',
+    address: '456 Rue Commerciale, Laval, QC H7T 2B3',
+    type: 'commercial',
+    totalSpent: 15000,
+    lastService: '2026-01-15',
+    equipment: [],
+    divisions: ['construction', 'plomberie', 'toitures'],
+    joinedDate: '2023-05-20',
+    notes: 'Client commercial, projets réguliers',
+  },
+  {
+    id: 'client-004',
+    name: 'Sophie Legault',
+    phone: '450-555-2004',
+    email: 'sophie.legault@example.com',
+    address: '789 Avenue des Pins, Longueuil, QC J4K 3M5',
+    type: 'residential',
+    totalSpent: 1200,
+    lastService: '2025-12-10',
+    equipment: [
+      { type: 'Roof', type: 'Shingles', installDate: '2023-08-15' }
+    ],
+    divisions: ['toitures'],
+    joinedDate: '2023-08-01',
+    notes: '',
+  },
+  {
+    id: 'client-005',
+    name: 'Pierre Côté',
+    phone: '514-555-2005',
+    email: 'pierre.cote@example.com',
+    address: '321 Rue Principale, Boucherville, QC J4B 5E3',
+    type: 'residential',
+    totalSpent: 450,
+    lastService: '2026-01-05',
+    equipment: [],
+    divisions: ['plomberie'],
+    joinedDate: '2025-12-20',
+    notes: 'Urgent réparation effectuée',
+  },
+]
+
+export default mockClients

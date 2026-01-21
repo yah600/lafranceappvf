@@ -1,0 +1,201 @@
+export const mockJobs = [
+  // Urgent bidding job
+  {
+    id: 'job-001',
+    type: 'urgent',
+    status: 'bidding',
+    priority: 'urgent',
+    division: 'plomberie',
+    serviceId: 'plomb-003',
+    serviceName: 'Tuyau éclaté',
+    clientId: 'client-001',
+    clientName: 'Jean-Paul Bertrand',
+    clientPhone: '450-555-2001',
+    address: {
+      street: '123 Rue Saint-Jean',
+      city: 'Longueuil',
+      province: 'QC',
+      postalCode: 'J4H 2Y7',
+      coordinates: { lat: 45.5372, lng: -73.5182 },
+    },
+    description: 'Tuyau éclaté dans le sous-sol, eau partout. Besoin urgent!',
+    photos: [],
+    clientBudget: 600,
+    minimumBid: 300,
+    biddingDuration: 5,
+    biddingStartTime: new Date(Date.now() - 120000).toISOString(), // Started 2 min ago
+    biddingEndTime: new Date(Date.now() + 180000).toISOString(), // Ends in 3 min
+    bids: [
+      {
+        technicianId: 'tech-001',
+        technicianName: 'Marc Lefebvre',
+        amount: 450,
+        timestamp: new Date(Date.now() - 60000).toISOString(),
+      },
+    ],
+    createdAt: new Date(Date.now() - 120000).toISOString(),
+  },
+
+  // Scheduled job - assigned
+  {
+    id: 'job-002',
+    type: 'scheduled',
+    status: 'assigned',
+    priority: 'normal',
+    division: 'toitures',
+    serviceId: 'toit-004',
+    serviceName: 'Inspection toiture',
+    clientId: 'client-001',
+    clientName: 'Jean-Paul Bertrand',
+    clientPhone: '450-555-2001',
+    address: {
+      street: '45 Rue Principale',
+      city: 'Brossard',
+      province: 'QC',
+      postalCode: 'J4X 1A1',
+      coordinates: { lat: 45.4523, lng: -73.4654 },
+    },
+    description: 'Possible fuite près de la cheminée',
+    scheduledDate: '2026-01-26',
+    scheduledTime: '14:00',
+    technicianId: 'tech-003',
+    technicianName: 'Jean Dupont',
+    amount: 150,
+    createdAt: '2026-01-20T10:30:00Z',
+  },
+
+  // Active job - in progress
+  {
+    id: 'job-003',
+    type: 'scheduled',
+    status: 'in-progress',
+    priority: 'high',
+    division: 'plomberie',
+    serviceId: 'plomb-101',
+    serviceName: 'Installation chauffe-eau',
+    clientId: 'client-002',
+    clientName: 'Marie Tremblay',
+    clientPhone: '514-555-2002',
+    address: {
+      street: '123 Boulevard Saint-Laurent',
+      city: 'Montréal',
+      province: 'QC',
+      postalCode: 'H2T 1R5',
+      coordinates: { lat: 45.5231, lng: -73.5956 },
+    },
+    description: 'Installation nouveau chauffe-eau 50 gallons',
+    technicianId: 'tech-002',
+    technicianName: 'Pierre Laval',
+    startTime: new Date(Date.now() - 3600000).toISOString(), // Started 1 hour ago
+    photos: [
+      { id: 'photo-1', url: '/placeholder-before.jpg', timestamp: new Date(Date.now() - 3000000).toISOString() }
+    ],
+    amount: 800,
+    scheduledDate: '2026-01-21',
+    scheduledTime: '08:00',
+    createdAt: '2026-01-18T15:00:00Z',
+  },
+
+  // Completed job
+  {
+    id: 'job-004',
+    type: 'scheduled',
+    status: 'completed',
+    priority: 'normal',
+    division: 'plomberie',
+    serviceId: 'plomb-201',
+    serviceName: 'Réparation robinet',
+    clientId: 'client-001',
+    clientName: 'Jean-Paul Bertrand',
+    clientPhone: '450-555-2001',
+    address: {
+      street: '45 Rue Principale',
+      city: 'Brossard',
+      province: 'QC',
+      postalCode: 'J4X 1A1',
+      coordinates: { lat: 45.4523, lng: -73.4654 },
+    },
+    description: 'Robinet cuisine qui fuit',
+    technicianId: 'tech-001',
+    technicianName: 'Marc Lefebvre',
+    startTime: '2026-01-20T09:00:00Z',
+    endTime: '2026-01-20T10:30:00Z',
+    duration: 90, // minutes
+    photos: [
+      { id: 'photo-2', url: '/placeholder-before.jpg', timestamp: '2026-01-20T09:15:00Z' },
+      { id: 'photo-3', url: '/placeholder-during.jpg', timestamp: '2026-01-20T09:45:00Z' },
+      { id: 'photo-4', url: '/placeholder-after.jpg', timestamp: '2026-01-20T10:20:00Z' },
+    ],
+    amount: 120,
+    finalAmount: 120,
+    payment: {
+      immediate: 90,
+      holdback: 30,
+      immediatePercent: 75,
+      holdbackPercent: 25,
+    },
+    rating: 5,
+    ratingComment: 'Excellent service, très professionnel!',
+    scheduledDate: '2026-01-20',
+    scheduledTime: '09:00',
+    createdAt: '2026-01-18T14:00:00Z',
+  },
+
+  // Pending job (waiting assignment)
+  {
+    id: 'job-005',
+    type: 'scheduled',
+    status: 'pending',
+    priority: 'normal',
+    division: 'construction',
+    serviceId: 'const-001',
+    serviceName: 'Rénovation salle de bain',
+    clientId: 'client-002',
+    clientName: 'Marie Tremblay',
+    clientPhone: '514-555-2002',
+    address: {
+      street: '123 Boulevard Saint-Laurent',
+      city: 'Montréal',
+      province: 'QC',
+      postalCode: 'H2T 1R5',
+      coordinates: { lat: 45.5231, lng: -73.5956 },
+    },
+    description: 'Rénovation complète salle de bain: plancher, céramique, plomberie',
+    scheduledDate: '2026-01-28',
+    scheduledTime: '08:00',
+    estimatedAmount: 5000,
+    createdAt: '2026-01-21T11:00:00Z',
+  },
+
+  // Another urgent job - no bids yet
+  {
+    id: 'job-006',
+    type: 'urgent',
+    status: 'bidding',
+    priority: 'urgent',
+    division: 'plomberie',
+    serviceId: 'plomb-002',
+    serviceName: 'Réparation fuite urgente',
+    clientId: 'client-002',
+    clientName: 'Marie Tremblay',
+    clientPhone: '514-555-2002',
+    address: {
+      street: '123 Boulevard Saint-Laurent',
+      city: 'Montréal',
+      province: 'QC',
+      postalCode: 'H2T 1R5',
+      coordinates: { lat: 45.5231, lng: -73.5956 },
+    },
+    description: 'Fuite importante sous l\'évier de cuisine',
+    photos: [],
+    clientBudget: 400,
+    minimumBid: 200,
+    biddingDuration: 5,
+    biddingStartTime: new Date(Date.now() - 60000).toISOString(), // Started 1 min ago
+    biddingEndTime: new Date(Date.now() + 240000).toISOString(), // Ends in 4 min
+    bids: [],
+    createdAt: new Date(Date.now() - 60000).toISOString(),
+  },
+]
+
+export default mockJobs

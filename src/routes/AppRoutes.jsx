@@ -6,6 +6,9 @@ import RoleRoute from './RoleRoute'
 // Public pages
 import Login from '@pages/public/Login'
 
+// Technician pages
+import TechDashboard from '@pages/technician/TechDashboard'
+
 // Placeholder component for pages we haven't built yet
 const Placeholder = ({ title }) => (
   <div style={{ padding: '20px' }}>
@@ -52,7 +55,7 @@ function AppRoutes() {
           <ProtectedRoute>
             <RoleRoute allowedRoles={['technician']}>
               <Routes>
-                <Route path="dashboard" element={<Placeholder title="Tech Dashboard" />} />
+                <Route path="dashboard" element={<TechDashboard />} />
                 <Route path="jobs" element={<Placeholder title="Tech Jobs" />} />
                 <Route path="job/:id/active" element={<Placeholder title="Active Job" />} />
                 <Route path="earnings" element={<Placeholder title="Earnings" />} />

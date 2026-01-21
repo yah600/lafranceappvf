@@ -1,0 +1,30 @@
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+}
+
+.app-main {
+  flex: 1;
+  padding: var(--spacing-4);
+  padding-bottom: calc(var(--spacing-4) + 80px); /* Space for mobile nav */
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .app-main {
+    padding: var(--spacing-3);
+    padding-bottom: calc(var(--spacing-3) + 70px);
+  }
+}
+
+/* Desktop - no bottom nav padding */
+@media (min-width: 769px) {
+  .app-main {
+    padding-bottom: var(--spacing-4);
+  }
+}

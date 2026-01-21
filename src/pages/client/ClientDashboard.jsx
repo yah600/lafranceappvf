@@ -1,13 +1,17 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Page, Navbar, Block, Card, Button, List, ListItem } from 'konsta/react'
-import { AlertCircle, Calendar, Clock, FileText, Star, Plus } from 'lucide-react'
+import { AlertCircle, Calendar, Clock, FileText, Star, Plus, Phone, ChevronRight } from 'lucide-react'
 import { useAuthStore } from '@stores/authStore'
 import { useJobsStore } from '@stores/jobsStore'
+import AppLayout from '@components/layout/AppLayout'
+import Section from '@components/common/Section'
+import Card from '@components/common/Card'
+import Button from '@components/common/Button'
 import JobCard from '@components/cards/JobCard'
 import StatusBadge from '@components/common/StatusBadge'
 import { formatCurrency, formatDate } from '@utils/formatters'
 import mockJobs from '@data/mockJobs'
+import './ClientDashboard.css'
 
 function ClientDashboard() {
   const navigate = useNavigate()
@@ -33,143 +37,132 @@ function ClientDashboard() {
   const currentJob = activeJobs[0]
 
   return (
-    <Page>
-      <Navbar
-        title={`Bonjour, ${user?.name?.split(' ')[0]} 👋`}
-        subtitle="Bienvenue sur votre portail client"
-      />
-
-      <div className="pb-8">
-        {/* Quick Actions */}
-        <Block>
-          <h2 className="text-xl font-bold mb-3">Demander un Service</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <Card
-              className="text-center cursor-pointer hover:shadow-lg transition-shadow"
-              onClick={() => navigate('/client/request/urgent')}
-            >
-              <div className="py-4">
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <AlertCircle size={32} className="text-red-600" />
-                </div>
-                <h3 className="font-bold text-lg mb-1">Urgence</h3>
-                <p className="text-sm text-gray-600">Service immédiat</p>
-                <p className="text-xs text-red-600 font-semibold mt-2">Réponse sous 5 min</p>
-              </div>
-            </Card>
-
-            <Card
-              className="text-center cursor-pointer hover:shadow-lg transition-shadow"
-              onClick={() => navigate('/client/request/scheduled')}
-            >
-              <div className="py-4">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Calendar size={32} className="text-blue-600" />
-                </div>
-                <h3 className="font-bold text-lg mb-1">Planifié</h3>
-                <p className="text-sm text-gray-600">Choisir date/heure</p>
-                <p className="text-xs text-blue-600 font-semibold mt-2">Réservez maintenant</p>
-              </div>
-            </Card>
-          </div>
-        </Block>
-
-        {/* Current Active Job */}
-        {currentJob && (
-          <Block>
-            <h2 className="text-xl font-bold mb-3">Travail en Cours</h2>
-            <Card className="border-l-4 border-l-blue-500">
-              <div className="flex justify-between items-start mb-3">
-                <div>
-                  <h3 className="font-bold text-lg">{currentJob.serviceName}</h3>
-                  {currentJob.technicianName && (
-                    <p className="text-sm text-gray-600">Technicien: {currentJob.technicianName}</p>
-                  )}
-                </div>
-                <StatusBadge status={currentJob.status} />
-              </div>
-
-              {currentJob.status === 'bidding' && (
-                <div className="mb-3 p-3 bg-blue-50 rounded-lg">
-                  <p className="text-sm text-blue-700 font-medium">
-                    🔍 Recherche du meilleur technicien disponible...
-                  </p>
-                  <p className="text-xs text-blue-600 mt-1">
-                    Vous recevrez une notification dès qu'un technicien sera assigné
-                  </p>
-                </div>
-              )}
-
-              {currentJob.status === 'in-progress' && (
-                <div className="flex gap-2">
-                  <Button
-                    className="flex-1"
-                    onClick={() => navigate(`/client/job/${currentJob.id}/tracking`)}
-                  >
-                    Suivre en Temps Réel
-                  </Button>
-                  {currentJob.technicianPhone && (
-                    <Button
-                      outline
-                      onClick={() => window.open(`tel:${currentJob.technicianPhone}`)}
-                    >
-                      Appeler
-                    </Button>
-                  )}
-                </div>
-              )}
-
-              {(currentJob.status === 'assigned' || currentJob.status === 'pending') && (
-                <div className="text-sm text-gray-600">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Calendar size={16} />
-                    <span>{formatDate(currentJob.scheduledDate)} à {currentJob.scheduledTime}</span>
-                  </div>
-                  {currentJob.amount && (
-                    <div className="mt-2 text-green-600 font-semibold">
-                      Montant: {formatCurrency(currentJob.amount)}
-                    </div>
-                  )}
-                </div>
-              )}
-            </Card>
-          </Block>
-        )}
-
-        {/* Stats */}
-        <Block>
-          <div className="grid grid-cols-3 gap-4">
-            <Card className="text-center">
-              <Clock size={32} className="mx-auto mb-2 text-blue-600" />
-              <div className="text-2xl font-bold">{activeJobs.length}</div>
-              <div className="text-xs text-gray-600">En cours</div>
-            </Card>
-            <Card className="text-center">
-              <FileText size={32} className="mx-auto mb-2 text-green-600" />
-              <div className="text-2xl font-bold">{completedJobs.length}</div>
-              <div className="text-xs text-gray-600">Complétés</div>
-            </Card>
-            <Card className="text-center">
-              <Star size={32} className="mx-auto mb-2 text-yellow-500" />
-              <div className="text-2xl font-bold">4.9</div>
-              <div className="text-xs text-gray-600">Note moyenne</div>
-            </Card>
-          </div>
-        </Block>
-
-        {/* Recent Jobs */}
-        {completedJobs.length > 0 && (
-          <Block>
-            <div className="flex justify-between items-center mb-3">
-              <h2 className="text-xl font-bold">Travaux Récents</h2>
-              <Button
-                clear
-                onClick={() => navigate('/client/jobs')}
-                className="text-blue-600"
-              >
-                Voir tout
-              </Button>
+    <AppLayout
+      title={`Bonjour, ${user?.name?.split(' ')[0]} 👋`}
+      subtitle="Bienvenue sur votre portail client"
+      showHeader={true}
+    >
+      {/* Quick Actions */}
+      <Section title="Demander un Service">
+        <div className="service-actions">
+          <Card className="service-card service-card-urgent" onClick={() => navigate('/client/request/urgent')}>
+            <div className="service-icon-wrapper service-icon-urgent">
+              <AlertCircle size={32} />
             </div>
+            <h3 className="service-title">Urgence</h3>
+            <p className="service-description">Service immédiat</p>
+            <p className="service-badge service-badge-urgent">Réponse sous 5 min</p>
+          </Card>
+
+          <Card className="service-card service-card-scheduled" onClick={() => navigate('/client/request/scheduled')}>
+            <div className="service-icon-wrapper service-icon-scheduled">
+              <Calendar size={32} />
+            </div>
+            <h3 className="service-title">Planifié</h3>
+            <p className="service-description">Choisir date/heure</p>
+            <p className="service-badge service-badge-scheduled">Réservez maintenant</p>
+          </Card>
+        </div>
+      </Section>
+
+      {/* Current Active Job */}
+      {currentJob && (
+        <Section title="Travail en Cours">
+          <Card className="active-job-card">
+            <div className="job-header">
+              <div>
+                <h3 className="job-service-name">{currentJob.serviceName}</h3>
+                {currentJob.technicianName && (
+                  <p className="job-tech-name">Technicien: {currentJob.technicianName}</p>
+                )}
+              </div>
+              <StatusBadge status={currentJob.status} />
+            </div>
+
+            {currentJob.status === 'bidding' && (
+              <div className="job-bidding-status">
+                <p className="bidding-message">
+                  🔍 Recherche du meilleur technicien disponible...
+                </p>
+                <p className="bidding-note">
+                  Vous recevrez une notification dès qu'un technicien sera assigné
+                </p>
+              </div>
+            )}
+
+            {currentJob.status === 'in-progress' && (
+              <div className="job-actions">
+                <Button
+                  variant="primary"
+                  fullWidth={true}
+                  onClick={() => navigate(`/client/job/${currentJob.id}/tracking`)}
+                >
+                  Suivre en Temps Réel
+                </Button>
+                {currentJob.technicianPhone && (
+                  <Button
+                    variant="outline"
+                    icon={<Phone size={20} />}
+                    onClick={() => window.open(`tel:${currentJob.technicianPhone}`)}
+                  >
+                    Appeler
+                  </Button>
+                )}
+              </div>
+            )}
+
+            {(currentJob.status === 'assigned' || currentJob.status === 'pending') && (
+              <div className="job-details">
+                <div className="job-schedule">
+                  <Calendar size={16} />
+                  <span>{formatDate(currentJob.scheduledDate)} à {currentJob.scheduledTime}</span>
+                </div>
+                {currentJob.amount && (
+                  <div className="job-amount">
+                    Montant: {formatCurrency(currentJob.amount)}
+                  </div>
+                )}
+              </div>
+            )}
+          </Card>
+        </Section>
+      )}
+
+      {/* Stats */}
+      <Section>
+        <div className="dashboard-stats">
+          <Card className="stat-card">
+            <Clock size={32} className="stat-icon stat-icon-blue" />
+            <div className="stat-value">{activeJobs.length}</div>
+            <div className="stat-label">En cours</div>
+          </Card>
+          <Card className="stat-card">
+            <FileText size={32} className="stat-icon stat-icon-green" />
+            <div className="stat-value">{completedJobs.length}</div>
+            <div className="stat-label">Complétés</div>
+          </Card>
+          <Card className="stat-card">
+            <Star size={32} className="stat-icon stat-icon-yellow" />
+            <div className="stat-value">4.9</div>
+            <div className="stat-label">Note moyenne</div>
+          </Card>
+        </div>
+      </Section>
+
+      {/* Recent Jobs */}
+      {completedJobs.length > 0 && (
+        <Section>
+          <div className="section-header-with-action">
+            <h2 className="section-title">Travaux Récents</h2>
+            <Button
+              variant="ghost"
+              size="small"
+              onClick={() => navigate('/client/jobs')}
+            >
+              Voir tout
+            </Button>
+          </div>
+          <div className="recent-jobs">
             {completedJobs.slice(0, 3).map((job) => (
               <JobCard
                 key={job.id}
@@ -179,54 +172,53 @@ function ClientDashboard() {
                 onClick={() => navigate(`/client/job/${job.id}`)}
               />
             ))}
-          </Block>
-        )}
+          </div>
+        </Section>
+      )}
 
-        {/* Quick Links */}
-        <Block>
-          <h2 className="text-xl font-bold mb-3">Liens Rapides</h2>
-          <List strong inset>
-            <ListItem
-              link
-              chevron
-              title="Mes Travaux"
-              after={myJobs.length > 0 ? `${myJobs.length}` : ''}
-              onClick={() => navigate('/client/jobs')}
-            />
-            <ListItem
-              link
-              chevron
-              title="Mes Factures"
-              onClick={() => navigate('/client/invoices')}
-            />
-            <ListItem
-              link
-              chevron
-              title="Mon Profil"
-              onClick={() => navigate('/client/profile')}
-            />
-          </List>
-        </Block>
+      {/* Quick Links */}
+      <Section title="Liens Rapides">
+        <Card>
+          <div className="quick-links">
+            <button className="quick-link-item" onClick={() => navigate('/client/jobs')}>
+              <span className="quick-link-label">Mes Travaux</span>
+              <div className="quick-link-right">
+                {myJobs.length > 0 && <span className="quick-link-badge">{myJobs.length}</span>}
+                <ChevronRight size={20} className="quick-link-chevron" />
+              </div>
+            </button>
+            <button className="quick-link-item" onClick={() => navigate('/client/invoices')}>
+              <span className="quick-link-label">Mes Factures</span>
+              <ChevronRight size={20} className="quick-link-chevron" />
+            </button>
+            <button className="quick-link-item" onClick={() => navigate('/client/profile')}>
+              <span className="quick-link-label">Mon Profil</span>
+              <ChevronRight size={20} className="quick-link-chevron" />
+            </button>
+          </div>
+        </Card>
+      </Section>
 
-        {/* Empty State */}
-        {myJobs.length === 0 && (
-          <Block className="text-center py-8">
-            <Plus size={64} className="mx-auto mb-4 text-gray-300" />
-            <h3 className="text-xl font-bold mb-2">Aucun Service Demandé</h3>
-            <p className="text-gray-600 mb-6">
+      {/* Empty State */}
+      {myJobs.length === 0 && (
+        <Section>
+          <div className="empty-state">
+            <Plus size={64} className="empty-icon" />
+            <h3 className="empty-title">Aucun Service Demandé</h3>
+            <p className="empty-text">
               Commencez par demander un service d'urgence ou planifié
             </p>
             <Button
-              large
+              size="large"
+              variant="primary"
               onClick={() => navigate('/client/request/urgent')}
-              className="max-w-md mx-auto"
             >
               Demander un Service
             </Button>
-          </Block>
-        )}
-      </div>
-    </Page>
+          </div>
+        </Section>
+      )}
+    </AppLayout>
   )
 }
 

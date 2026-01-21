@@ -1,0 +1,19 @@
+.custom-card {
+  background: white;
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-4);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.custom-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.custom-card.clickable {
+  cursor: pointer;
+}
+
+.custom-card.clickable:active {
+  transform: scale(0.98);
+}

@@ -1,0 +1,121 @@
+.custom-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  font-family: inherit;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-align: center;
+  white-space: nowrap;
+  outline: none;
+}
+
+.custom-button:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.custom-button:active:not(.button-disabled) {
+  transform: scale(0.98);
+}
+
+/* Sizes */
+.button-small {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: 0.875rem;
+}
+
+.button-medium {
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: 1rem;
+}
+
+.button-large {
+  padding: var(--spacing-4) var(--spacing-6);
+  font-size: 1.125rem;
+}
+
+/* Variants */
+.button-primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+}
+
+.button-primary:hover:not(.button-disabled) {
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+  box-shadow: var(--shadow-md);
+}
+
+.button-secondary {
+  background: var(--gray-200);
+  color: var(--text-primary);
+}
+
+.button-secondary:hover:not(.button-disabled) {
+  background: var(--gray-300);
+}
+
+.button-outline {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.button-outline:hover:not(.button-disabled) {
+  background: var(--primary-color);
+  color: white;
+}
+
+.button-danger {
+  background: linear-gradient(135deg, var(--error-color), #dc2626);
+  color: white;
+}
+
+.button-danger:hover:not(.button-disabled) {
+  background: linear-gradient(135deg, #dc2626, var(--error-color));
+  box-shadow: var(--shadow-md);
+}
+
+.button-success {
+  background: linear-gradient(135deg, var(--success-color), #059669);
+  color: white;
+}
+
+.button-success:hover:not(.button-disabled) {
+  background: linear-gradient(135deg, #059669, var(--success-color));
+  box-shadow: var(--shadow-md);
+}
+
+.button-ghost {
+  background: transparent;
+  color: var(--primary-color);
+}
+
+.button-ghost:hover:not(.button-disabled) {
+  background: var(--gray-100);
+}
+
+/* States */
+.button-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button-full-width {
+  width: 100%;
+}
+
+/* Icon */
+.button-icon {
+  display: flex;
+  align-items: center;
+}
+
+.button-text {
+  display: flex;
+  align-items: center;
+}

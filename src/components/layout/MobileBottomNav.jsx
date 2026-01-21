@@ -1,12 +1,10 @@
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Tabbar, TabbarLink } from 'konsta/react'
 import { Home, Briefcase, DollarSign, User } from 'lucide-react'
+import './MobileBottomNav.css'
 
 function MobileBottomNav() {
   const navigate = useNavigate()
   const location = useLocation()
-
-  const isActive = (path) => location.pathname.startsWith(path)
 
   const tabs = [
     { path: '/tech/dashboard', icon: Home, label: 'Accueil' },
@@ -16,32 +14,25 @@ function MobileBottomNav() {
   ]
 
   return (
-    <Tabbar
-      className="left-0 bottom-0 fixed"
-      style={{
-        paddingBottom: 'env(safe-area-inset-bottom, 0)',
-      }}
-    >
-      {tabs.map((tab) => {
-        const Icon = tab.icon
-        const active = isActive(tab.path)
+    <nav className="mobile-bottom-nav">
+      <div className="bottom-nav-content">
+        {tabs.map((tab) => {
+          const Icon = tab.icon
+          const isActive = location.pathname === tab.path
 
-        return (
-          <TabbarLink
-            key={tab.path}
-            active={active}
-            onClick={() => navigate(tab.path)}
-            label={tab.label}
-            icon={
-              <Icon
-                size={24}
-                className={active ? 'text-primary' : 'text-gray-400'}
-              />
-            }
-          />
-        )
-      })}
-    </Tabbar>
+          return (
+            <button
+              key={tab.path}
+              className={`nav-tab ${isActive ? 'nav-tab-active' : ''}`}
+              onClick={() => navigate(tab.path)}
+            >
+              <Icon size={24} className="nav-icon" />
+              <span className="nav-label">{tab.label}</span>
+            </button>
+          )
+        })}
+      </div>
+    </nav>
   )
 }
 

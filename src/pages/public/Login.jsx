@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Page, Navbar, List, ListInput, Block, Button } from 'konsta/react'
 import { useAuthStore } from '@stores/authStore'
 import { getMockUserByEmail } from '@data/mockUsers'
 import { APP_NAME } from '@config/constants'
+import './Login.css'
 
 function Login() {
   const navigate = useNavigate()
@@ -62,104 +62,107 @@ function Login() {
   }
 
   return (
-    <Page>
-      <Navbar title={APP_NAME} />
+    <div className="login-page">
+      <div className="login-header">
+        <h1 className="login-app-name">{APP_NAME}</h1>
+      </div>
 
-      <Block className="text-center mt-8 mb-4">
-        <h1 className="text-3xl font-bold mb-2">Connexion</h1>
-        <p className="text-gray-600">Accédez à votre compte</p>
-      </Block>
+      <div className="login-container">
+        <div className="login-intro">
+          <h2 className="login-title">Connexion</h2>
+          <p className="login-subtitle">Accédez à votre compte</p>
+        </div>
 
-      <form onSubmit={handleLogin}>
-        <List strong inset>
-          <ListInput
-            label="Email"
-            type="email"
-            placeholder="votre@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <ListInput
-            label="Mot de passe"
-            type="password"
-            placeholder="••••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </List>
+        <form onSubmit={handleLogin} className="login-form">
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">Email</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="votre@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="form-input"
+            />
+          </div>
 
-        {error && (
-          <Block className="text-red-500 text-center mt-2">
-            {error}
-          </Block>
-        )}
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">Mot de passe</label>
+            <input
+              id="password"
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="form-input"
+            />
+          </div>
 
-        <Block>
-          <Button
-            large
+          {error && (
+            <div className="login-error">
+              {error}
+            </div>
+          )}
+
+          <button
             type="submit"
             disabled={loading}
-            className="w-full"
+            className="login-button"
           >
             {loading ? 'Connexion...' : 'Se connecter'}
-          </Button>
-        </Block>
-      </form>
+          </button>
+        </form>
 
-      <Block className="mt-8">
-        <p className="text-center text-sm text-gray-600 mb-4">Connexion rapide (demo):</p>
+        <div className="quick-login">
+          <p className="quick-login-title">Connexion rapide (demo):</p>
 
-        <div className="space-y-2">
-          <Button
-            outline
-            className="w-full"
-            onClick={() => quickLogin('gabriel@lafrance.com')}
-          >
-            Admin: gabriel@lafrance.com
-          </Button>
+          <div className="quick-login-buttons">
+            <button
+              className="quick-login-button"
+              onClick={() => quickLogin('gabriel@lafrance.com')}
+            >
+              Admin: gabriel@lafrance.com
+            </button>
 
-          <Button
-            outline
-            className="w-full"
-            onClick={() => quickLogin('michael@lafrance.com')}
-          >
-            Division Head: michael@lafrance.com
-          </Button>
+            <button
+              className="quick-login-button"
+              onClick={() => quickLogin('michael@lafrance.com')}
+            >
+              Division Head: michael@lafrance.com
+            </button>
 
-          <Button
-            outline
-            className="w-full"
-            onClick={() => quickLogin('dispatcher@lafrance.com')}
-          >
-            Dispatcher: dispatcher@lafrance.com
-          </Button>
+            <button
+              className="quick-login-button"
+              onClick={() => quickLogin('dispatcher@lafrance.com')}
+            >
+              Dispatcher: dispatcher@lafrance.com
+            </button>
 
-          <Button
-            outline
-            className="w-full"
-            onClick={() => quickLogin('marc@lafrance.com')}
-          >
-            Technician: marc@lafrance.com
-          </Button>
+            <button
+              className="quick-login-button"
+              onClick={() => quickLogin('marc@lafrance.com')}
+            >
+              Technician: marc@lafrance.com
+            </button>
 
-          <Button
-            outline
-            className="w-full"
-            onClick={() => quickLogin('jean.bertrand@example.com')}
-          >
-            Client: jean.bertrand@example.com
-          </Button>
+            <button
+              className="quick-login-button"
+              onClick={() => quickLogin('jean.bertrand@example.com')}
+            >
+              Client: jean.bertrand@example.com
+            </button>
+          </div>
         </div>
-      </Block>
 
-      <Block className="text-center text-xs text-gray-500 mt-8">
-        Mot de passe pour tous les comptes demo:<br />
-        Admin: admin123 | Division: plomb123/toit123<br />
-        Dispatcher: dispatch123 | Tech: tech123 | Client: client123
-      </Block>
-    </Page>
+        <div className="login-footer">
+          Mot de passe pour tous les comptes demo:<br />
+          Admin: admin123 | Division: plomb123/toit123<br />
+          Dispatcher: dispatch123 | Tech: tech123 | Client: client123
+        </div>
+      </div>
+    </div>
   )
 }
 

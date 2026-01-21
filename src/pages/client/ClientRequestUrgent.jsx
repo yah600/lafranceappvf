@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Page, Navbar, Block, List, ListInput, Button } from 'konsta/react'
-import { AlertCircle, MapPin, Phone, CreditCard, Camera } from 'lucide-react'
+import { AlertCircle, MapPin, Phone, CreditCard, Camera, ArrowLeft } from 'lucide-react'
 import { useAuthStore } from '@stores/authStore'
 import { useJobsStore } from '@stores/jobsStore'
 import { useUIStore } from '@stores/uiStore'
+import AppLayout from '@components/layout/AppLayout'
+import Section from '@components/common/Section'
+import Card from '@components/common/Card'
+import Button from '@components/common/Button'
 import { DIVISIONS } from '@config/divisions'
+import './ClientRequestUrgent.css'
 
 function ClientRequestUrgent() {
   const navigate = useNavigate()
@@ -75,161 +79,223 @@ function ClientRequestUrgent() {
   }
 
   return (
-    <Page>
-      <Navbar
-        title="Demande Urgente"
-        subtitle="Service immédiat"
-        backLink="Retour"
-        onBackClick={() => navigate('/client/dashboard')}
-      />
-
-      <Block className="bg-red-50 border-l-4 border-l-red-500 mb-4">
-        <div className="flex items-start gap-3">
-          <AlertCircle size={24} className="text-red-600 flex-shrink-0 mt-1" />
-          <div>
-            <h3 className="font-bold text-red-900 mb-1">Service d'Urgence 24/7</h3>
-            <p className="text-sm text-red-700">
-              Votre demande sera envoyée aux techniciens disponibles.
-              Vous recevrez une notification sous 5-10 minutes.
-            </p>
-          </div>
+    <AppLayout showHeader={false}>
+      {/* Custom Header with Back Button */}
+      <div className="urgent-header">
+        <button className="back-button" onClick={() => navigate('/client/dashboard')}>
+          <ArrowLeft size={24} />
+        </button>
+        <div className="header-content">
+          <h1 className="header-title">Demande Urgente</h1>
+          <p className="header-subtitle">Service immédiat</p>
         </div>
-      </Block>
+      </div>
+
+      {/* Alert Banner */}
+      <Section>
+        <Card className="alert-banner">
+          <div className="alert-content">
+            <AlertCircle size={24} className="alert-icon" />
+            <div className="alert-text">
+              <h3 className="alert-title">Service d'Urgence 24/7</h3>
+              <p className="alert-description">
+                Votre demande sera envoyée aux techniciens disponibles.
+                Vous recevrez une notification sous 5-10 minutes.
+              </p>
+            </div>
+          </div>
+        </Card>
+      </Section>
 
       <form onSubmit={handleSubmit}>
-        <Block>
-          <h3 className="font-bold mb-3">Informations du Service</h3>
-          <List strong inset>
-            <ListInput
-              label="Division"
-              type="select"
-              value={formData.division}
-              onChange={(e) => setFormData({ ...formData, division: e.target.value })}
-              required
-            >
-              <option value="">Sélectionner...</option>
-              {DIVISIONS.map((div) => (
-                <option key={div.id} value={div.id}>
-                  {div.shortName}
-                </option>
-              ))}
-            </ListInput>
+        {/* Service Information */}
+        <Section title="Informations du Service">
+          <Card>
+            <div className="form-group">
+              <label htmlFor="division" className="form-label">
+                Division <span className="required">*</span>
+              </label>
+              <select
+                id="division"
+                className="form-select"
+                value={formData.division}
+                onChange={(e) => setFormData({ ...formData, division: e.target.value })}
+                required
+              >
+                <option value="">Sélectionner...</option>
+                {DIVISIONS.map((div) => (
+                  <option key={div.id} value={div.id}>
+                    {div.shortName}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-            <ListInput
-              label="Service"
-              type="text"
-              placeholder="Ex: Tuyau éclaté, fuite, etc."
-              value={formData.service}
-              onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-            />
+            <div className="form-group">
+              <label htmlFor="service" className="form-label">
+                Service
+              </label>
+              <input
+                id="service"
+                type="text"
+                className="form-input"
+                placeholder="Ex: Tuyau éclaté, fuite, etc."
+                value={formData.service}
+                onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+              />
+            </div>
 
-            <ListInput
-              label="Description"
-              type="textarea"
-              placeholder="Décrivez le problème en détail..."
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              required
-              inputClassName="min-h-[100px]"
-            />
+            <div className="form-group">
+              <label htmlFor="description" className="form-label">
+                Description <span className="required">*</span>
+              </label>
+              <textarea
+                id="description"
+                className="form-textarea"
+                placeholder="Décrivez le problème en détail..."
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                required
+                rows={4}
+              />
+            </div>
 
-            <ListInput
-              label="Budget Maximum"
-              type="number"
-              placeholder="500"
-              value={formData.budget}
-              onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-              info="Les techniciens enchériront pour obtenir le meilleur prix"
-            />
-          </List>
-        </Block>
+            <div className="form-group">
+              <label htmlFor="budget" className="form-label">
+                Budget Maximum
+              </label>
+              <input
+                id="budget"
+                type="number"
+                className="form-input"
+                placeholder="500"
+                value={formData.budget}
+                onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+              />
+              <p className="form-hint">
+                Les techniciens enchériront pour obtenir le meilleur prix
+              </p>
+            </div>
+          </Card>
+        </Section>
 
-        <Block>
-          <h3 className="font-bold mb-3">
-            <MapPin size={20} className="inline mr-2" />
-            Adresse
-          </h3>
-          <List strong inset>
-            <ListInput
-              label="Rue"
-              type="text"
-              placeholder="123 Rue Exemple"
-              value={formData.address}
-              onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-              required
-            />
+        {/* Address */}
+        <Section>
+          <div className="section-title-with-icon">
+            <MapPin size={20} />
+            <span>Adresse</span>
+          </div>
+          <Card>
+            <div className="form-group">
+              <label htmlFor="address" className="form-label">
+                Rue <span className="required">*</span>
+              </label>
+              <input
+                id="address"
+                type="text"
+                className="form-input"
+                placeholder="123 Rue Exemple"
+                value={formData.address}
+                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                required
+              />
+            </div>
 
-            <ListInput
-              label="Ville"
-              type="text"
-              placeholder="Montréal"
-              value={formData.city}
-              onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-              required
-            />
-          </List>
-        </Block>
+            <div className="form-group">
+              <label htmlFor="city" className="form-label">
+                Ville <span className="required">*</span>
+              </label>
+              <input
+                id="city"
+                type="text"
+                className="form-input"
+                placeholder="Montréal"
+                value={formData.city}
+                onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                required
+              />
+            </div>
+          </Card>
+        </Section>
 
-        <Block>
-          <h3 className="font-bold mb-3">
-            <Phone size={20} className="inline mr-2" />
-            Contact
-          </h3>
-          <List strong inset>
-            <ListInput
-              label="Téléphone"
-              type="tel"
-              placeholder="514-555-1234"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              required
-            />
-          </List>
-        </Block>
+        {/* Contact */}
+        <Section>
+          <div className="section-title-with-icon">
+            <Phone size={20} />
+            <span>Contact</span>
+          </div>
+          <Card>
+            <div className="form-group">
+              <label htmlFor="phone" className="form-label">
+                Téléphone <span className="required">*</span>
+              </label>
+              <input
+                id="phone"
+                type="tel"
+                className="form-input"
+                placeholder="514-555-1234"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                required
+              />
+            </div>
+          </Card>
+        </Section>
 
-        <Block>
-          <div className="bg-blue-50 p-4 rounded-lg mb-4">
-            <div className="flex items-start gap-3">
-              <Camera size={20} className="text-blue-600 flex-shrink-0 mt-1" />
-              <div className="text-sm">
-                <p className="font-semibold text-blue-900 mb-1">
-                  Astuce: Prenez des photos
-                </p>
-                <p className="text-blue-700">
+        {/* Photo Tip */}
+        <Section>
+          <Card className="tip-card">
+            <div className="tip-content">
+              <Camera size={20} className="tip-icon" />
+              <div className="tip-text">
+                <p className="tip-title">Astuce: Prenez des photos</p>
+                <p className="tip-description">
                   Des photos du problème aident les techniciens à mieux préparer leur intervention
                 </p>
               </div>
             </div>
-          </div>
+          </Card>
+        </Section>
 
+        {/* Submit Buttons */}
+        <Section>
           <Button
-            large
             type="submit"
+            size="large"
+            variant="danger"
             disabled={submitting}
-            className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white"
+            fullWidth={true}
+            className="submit-button"
           >
             {submitting ? 'Envoi en cours...' : 'Envoyer la Demande Urgente'}
           </Button>
 
           <Button
-            large
-            outline
+            type="button"
+            size="large"
+            variant="outline"
             onClick={() => navigate('/client/dashboard')}
-            className="w-full mt-3"
+            fullWidth={true}
+            className="cancel-button"
           >
             Annuler
           </Button>
-        </Block>
+        </Section>
 
-        <Block className="text-center text-sm text-gray-500">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <CreditCard size={16} />
-            <span>Paiement sécurisé après le service</span>
+        {/* Payment Info */}
+        <Section>
+          <div className="payment-info">
+            <div className="payment-info-item">
+              <CreditCard size={16} />
+              <span>Paiement sécurisé après le service</span>
+            </div>
+            <p className="payment-info-note">
+              Aucun frais avant l'acceptation de la soumission
+            </p>
           </div>
-          <p>Aucun frais avant l'acceptation de la soumission</p>
-        </Block>
+        </Section>
       </form>
-    </Page>
+    </AppLayout>
   )
 }
 

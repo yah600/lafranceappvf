@@ -1,0 +1,260 @@
+.admin-overview {
+  padding-bottom: 80px;
+}
+
+/* Today Stats */
+.today-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 1rem;
+}
+
+.stat-icon {
+  margin: 0 auto 0.5rem;
+}
+
+.stat-icon.revenue {
+  color: #059669;
+}
+
+.stat-icon.jobs {
+  color: #2563eb;
+}
+
+.stat-icon.rating {
+  color: #9333ea;
+}
+
+.stat-icon.goal {
+  color: #ea580c;
+}
+
+.stat-value {
+  font-size: 1.875rem;
+  font-weight: bold;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.stat-trend {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.stat-trend.positive {
+  color: #059669;
+}
+
+.stat-meta {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+/* Urgent Jobs */
+.urgent-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.urgent-icon {
+  color: #dc2626;
+}
+
+.urgent-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.urgent-jobs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.urgent-job-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.urgent-job-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.urgent-job-info {
+  flex: 1;
+}
+
+.urgent-job-title {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.urgent-job-details {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.urgent-job-meta {
+  text-align: right;
+}
+
+.urgent-job-bids {
+  font-size: 0.875rem;
+  color: #dc2626;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.urgent-job-budget {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+/* Division Performance Table */
+.division-table-wrapper {
+  overflow-x: auto;
+}
+
+.division-table {
+  width: 100%;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+
+.division-table thead {
+  background-color: #f3f4f6;
+}
+
+.division-table th {
+  text-align: left;
+  padding: 0.75rem;
+  font-weight: bold;
+}
+
+.division-table th:not(:first-child) {
+  text-align: center;
+}
+
+.division-table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.division-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.division-table td {
+  padding: 0.75rem;
+}
+
+.division-table td.text-center {
+  text-align: center;
+  font-weight: 600;
+}
+
+.division-table td.revenue {
+  color: #059669;
+}
+
+.division-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.division-color {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+}
+
+.active-badge {
+  background-color: #dbeafe;
+  color: #1e40af;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.alert-success {
+  color: #059669;
+  font-size: 1.125rem;
+}
+
+.alert-badge {
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.action-card {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.action-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.action-icon {
+  margin: 0 auto 0.5rem;
+}
+
+.action-icon.analytics {
+  color: #2563eb;
+}
+
+.action-icon.technicians {
+  color: #059669;
+}
+
+.action-icon.compliance {
+  color: #ea580c;
+}
+
+.action-icon.bidding {
+  color: #9333ea;
+}
+
+.action-label {
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .today-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

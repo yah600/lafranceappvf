@@ -1,0 +1,243 @@
+.dispatch-dashboard {
+  padding-bottom: 80px;
+}
+
+/* Actions */
+.dispatch-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dispatch-actions > button:first-child {
+  flex: 1;
+}
+
+/* Stats Grid */
+.dispatch-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 0.75rem;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+/* Kanban Board */
+.kanban-board {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.kanban-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.kanban-column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+.kanban-column-header.incoming {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.kanban-column-header.assigned {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.kanban-column-header.inProgress {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.kanban-column-header.completed {
+  background-color: #a7f3d0;
+  color: #064e3b;
+}
+
+.kanban-column-title {
+  font-weight: bold;
+}
+
+.kanban-column-count {
+  background-color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius);
+  font-size: 0.75rem;
+}
+
+.kanban-column-body {
+  background-color: #f9fafb;
+  padding: 0.75rem;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  min-height: 100px;
+}
+
+.kanban-empty {
+  text-align: center;
+  color: #9ca3af;
+  padding: 1rem;
+  font-size: 0.875rem;
+}
+
+/* Job Cards */
+.job-card {
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.job-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.job-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.job-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.job-card-info {
+  flex: 1;
+}
+
+.job-id {
+  font-weight: bold;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+  color: var(--color-text-secondary);
+}
+
+.job-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.job-card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.job-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.job-detail.technician {
+  color: var(--color-primary);
+}
+
+.job-amount {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #059669;
+}
+
+.job-urgent-badge {
+  font-size: 0.75rem;
+  background-color: #fef2f2;
+  color: #991b1b;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius);
+}
+
+/* List View */
+.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.list-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #d1d5db;
+}
+
+.list-empty svg {
+  margin: 0 auto 1rem;
+}
+
+.list-empty p {
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Technicians Stats */
+.technicians-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.tech-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.tech-stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.tech-stat-value.available {
+  color: #059669;
+}
+
+.tech-stat-value.busy {
+  color: #ea580c;
+}
+
+.tech-stat-value.offline {
+  color: #6b7280;
+}
+
+.tech-stat-label {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .dispatch-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

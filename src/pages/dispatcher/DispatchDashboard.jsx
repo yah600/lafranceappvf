@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Page, Navbar, Block, Card, Button, Segmented, SegmentedButton } from 'konsta/react'
 import { Plus, Users, MapPin, Phone, Clock } from 'lucide-react'
 import { useAuthStore } from '@stores/authStore'
 import { useJobsStore } from '@stores/jobsStore'
+import AppLayout from '@components/layout/AppLayout'
+import Section from '@components/common/Section'
+import Card from '@components/common/Card'
+import Button from '@components/common/Button'
+import TabBar from '@components/common/TabBar'
 import StatusBadge from '@components/common/StatusBadge'
 import { formatDate, formatTime, formatCurrency, formatAddress } from '@utils/formatters'
 import { getDivisionColor } from '@config/divisions'
 import mockJobs from '@data/mockJobs'
+import './DispatchDashboard.css'
 
 function DispatchDashboard() {
   const navigate = useNavigate()
@@ -61,32 +66,32 @@ function DispatchDashboard() {
   const renderJobCard = (job) => (
     <Card
       key={job.id}
-      className="mb-3 cursor-pointer hover:shadow-lg transition-shadow"
+      className="job-card"
       onClick={() => navigate(`/dispatch/job/${job.id}`)}
       style={{ borderLeft: `4px solid ${getDivisionColor(job.division)}` }}
     >
-      <div className="space-y-2">
-        <div className="flex justify-between items-start">
-          <div className="flex-1">
-            <div className="font-bold text-sm mb-1">#{job.id.slice(-4)}</div>
-            <h4 className="font-semibold">{job.serviceName}</h4>
+      <div className="job-card-content">
+        <div className="job-card-header">
+          <div className="job-card-info">
+            <div className="job-id">#{job.id.slice(-4)}</div>
+            <h4 className="job-title">{job.serviceName}</h4>
           </div>
           <StatusBadge status={job.status} />
         </div>
 
-        <div className="text-sm text-gray-600 space-y-1">
-          <div className="flex items-center gap-1">
+        <div className="job-card-details">
+          <div className="job-detail">
             <Users size={14} />
             <span>{job.clientName}</span>
           </div>
           {job.technicianName && (
-            <div className="flex items-center gap-1 text-blue-600">
+            <div className="job-detail technician">
               <Users size={14} />
               <span>{job.technicianName}</span>
             </div>
           )}
           {job.scheduledDate && (
-            <div className="flex items-center gap-1">
+            <div className="job-detail">
               <Clock size={14} />
               <span>{formatDate(job.scheduledDate)} {job.scheduledTime}</span>
             </div>
@@ -94,13 +99,13 @@ function DispatchDashboard() {
         </div>
 
         {job.amount && (
-          <div className="text-sm font-semibold text-green-600">
+          <div className="job-amount">
             {formatCurrency(job.amount)}
           </div>
         )}
 
         {job.type === 'urgent' && job.status === 'bidding' && (
-          <div className="text-xs bg-red-50 text-red-700 px-2 py-1 rounded">
+          <div className="job-urgent-badge">
             🚨 Enchères en cours ({job.bids?.length || 0} enchères)
           </div>
         )}
@@ -109,73 +114,72 @@ function DispatchDashboard() {
   )
 
   return (
-    <Page>
-      <Navbar
-        title={`Dispatch - ${activeDivision || 'Toutes'}`}
-        subtitle={`${divisionJobs.length} travaux actifs`}
-      />
-
-      <div className="pb-8">
+    <AppLayout
+      title={`Dispatch - ${activeDivision || 'Toutes'}`}
+      subtitle={`${divisionJobs.length} travaux actifs`}
+      showHeader={true}
+      showMobileNav={true}
+    >
+      <div className="dispatch-dashboard">
         {/* Actions */}
-        <Block className="flex gap-2">
-          <Button
-            className="flex-1"
-            onClick={() => navigate('/dispatch/create-urgent')}
-          >
-            <Plus size={20} className="mr-2" />
-            Créer Urgence
-          </Button>
-          <Button
-            outline
-            onClick={() => navigate('/dispatch/technicians')}
-          >
-            <Users size={20} />
-          </Button>
-        </Block>
+        <Section>
+          <div className="dispatch-actions">
+            <Button
+              onClick={() => navigate('/dispatch/create-urgent')}
+              icon={<Plus size={20} />}
+              fullWidth
+            >
+              Créer Urgence
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => navigate('/dispatch/technicians')}
+              icon={<Users size={20} />}
+            />
+          </div>
+        </Section>
 
         {/* View Toggle */}
-        <Block>
-          <Segmented raised>
-            <SegmentedButton
+        <Section>
+          <TabBar>
+            <TabBar.Tab
               active={view === 'kanban'}
               onClick={() => setView('kanban')}
-            >
-              Kanban
-            </SegmentedButton>
-            <SegmentedButton
+              label="Kanban"
+            />
+            <TabBar.Tab
               active={view === 'list'}
               onClick={() => setView('list')}
-            >
-              Liste
-            </SegmentedButton>
-          </Segmented>
-        </Block>
+              label="Liste"
+            />
+          </TabBar>
+        </Section>
 
         {/* Stats */}
-        <Block>
-          <div className="grid grid-cols-4 gap-2">
+        <Section>
+          <div className="dispatch-stats">
             {Object.entries(columns).map(([key, col]) => (
-              <Card key={key} className="text-center p-3">
-                <div className="text-2xl font-bold">{col.count}</div>
-                <div className="text-xs text-gray-600">{col.title}</div>
+              <Card key={key} className="stat-card">
+                <div className="stat-value">{col.count}</div>
+                <div className="stat-label">{col.title}</div>
               </Card>
             ))}
           </div>
-        </Block>
+        </Section>
 
         {/* Kanban Board */}
         {view === 'kanban' && (
-          <Block>
-            <div className="space-y-6">
+          <Section>
+            <div className="kanban-board">
               {Object.entries(columns).map(([key, column]) => (
-                <div key={key}>
-                  <div className={`${column.color} px-3 py-2 rounded-t-lg font-bold text-sm flex justify-between items-center`}>
-                    <span>{column.title}</span>
-                    <span className="bg-white px-2 py-1 rounded text-xs">{column.count}</span>
+                <div key={key} className="kanban-column">
+                  <div className={`kanban-column-header ${key}`}>
+                    <span className="kanban-column-title">{column.title}</span>
+                    <span className="kanban-column-count">{column.count}</span>
                   </div>
-                  <div className="bg-gray-50 p-3 rounded-b-lg min-h-[100px]">
+                  <div className="kanban-column-body">
                     {column.jobs.length === 0 ? (
-                      <div className="text-center text-gray-400 py-4 text-sm">
+                      <div className="kanban-empty">
                         Aucun travail
                       </div>
                     ) : (
@@ -185,51 +189,52 @@ function DispatchDashboard() {
                 </div>
               ))}
             </div>
-          </Block>
+          </Section>
         )}
 
         {/* List View */}
         {view === 'list' && (
-          <Block>
+          <Section>
             {divisionJobs.length === 0 ? (
-              <div className="text-center py-12">
-                <Users size={48} className="mx-auto mb-4 text-gray-300" />
-                <p className="text-gray-600">Aucun travail</p>
+              <div className="list-empty">
+                <Users size={48} />
+                <p>Aucun travail</p>
               </div>
             ) : (
-              divisionJobs.map(renderJobCard)
+              <div className="list-view">
+                {divisionJobs.map(renderJobCard)}
+              </div>
             )}
-          </Block>
+          </Section>
         )}
 
         {/* Technicians Summary */}
-        <Block>
-          <h3 className="font-bold mb-3">Techniciens Disponibles</h3>
+        <Section title="Techniciens Disponibles">
           <Card>
-            <div className="grid grid-cols-3 gap-4 text-center">
-              <div>
-                <div className="text-2xl font-bold text-green-600">3</div>
-                <div className="text-xs text-gray-600">Disponibles</div>
+            <div className="technicians-stats">
+              <div className="tech-stat">
+                <div className="tech-stat-value available">3</div>
+                <div className="tech-stat-label">Disponibles</div>
               </div>
-              <div>
-                <div className="text-2xl font-bold text-orange-600">2</div>
-                <div className="text-xs text-gray-600">Occupés</div>
+              <div className="tech-stat">
+                <div className="tech-stat-value busy">2</div>
+                <div className="tech-stat-label">Occupés</div>
               </div>
-              <div>
-                <div className="text-2xl font-bold text-gray-600">1</div>
-                <div className="text-xs text-gray-600">Hors service</div>
+              <div className="tech-stat">
+                <div className="tech-stat-value offline">1</div>
+                <div className="tech-stat-label">Hors service</div>
               </div>
             </div>
             <Button
-              className="w-full mt-4"
+              fullWidth
               onClick={() => navigate('/dispatch/technicians')}
             >
               Voir Tous les Techniciens
             </Button>
           </Card>
-        </Block>
+        </Section>
       </div>
-    </Page>
+    </AppLayout>
   )
 }
 

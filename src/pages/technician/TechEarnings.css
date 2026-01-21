@@ -1,0 +1,229 @@
+/* Balance Card */
+.balance-card {
+  background: linear-gradient(135deg, var(--success-color), #059669);
+  color: white;
+}
+
+.balance-content {
+  text-align: center;
+  padding: var(--spacing-4) 0;
+}
+
+.balance-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: var(--spacing-2);
+}
+
+.balance-amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-4);
+}
+
+.withdraw-button {
+  background: white !important;
+  color: var(--success-color) !important;
+  font-weight: 600;
+}
+
+/* Pending Card */
+.pending-card {
+  background: #fff7ed;
+}
+
+.pending-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pending-info {
+  flex: 1;
+}
+
+.pending-label {
+  font-size: 0.875rem;
+  color: #c2410c;
+  font-weight: 500;
+}
+
+.pending-amount {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #7c2d12;
+  margin: var(--spacing-2) 0;
+}
+
+.pending-note {
+  font-size: 0.75rem;
+  color: #ea580c;
+}
+
+.pending-icon {
+  color: #fed7aa;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-4);
+}
+
+.stat-card {
+  text-align: center;
+}
+
+.stat-icon {
+  margin: 0 auto var(--spacing-2);
+}
+
+.stat-icon-green {
+  color: var(--success-color);
+}
+
+.stat-icon-blue {
+  color: var(--primary-color);
+}
+
+.stat-value {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-1);
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-1);
+}
+
+.stat-growth {
+  font-size: 0.75rem;
+  color: var(--success-color);
+  font-weight: 600;
+}
+
+.stat-meta {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+/* Payment History */
+.payment-history {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.payment-card {
+  padding: var(--spacing-4);
+}
+
+.payment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-3);
+  padding-bottom: var(--spacing-3);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.payment-service {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-1);
+}
+
+.payment-date {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.payment-total {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.payment-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.payment-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+}
+
+.payment-status-released {
+  color: #15803d;
+}
+
+.payment-status-pending {
+  color: #c2410c;
+}
+
+.payment-amount {
+  font-weight: 600;
+}
+
+.payment-note {
+  font-size: 0.75rem;
+  color: #ea580c;
+  font-style: italic;
+  margin-top: var(--spacing-1);
+}
+
+/* Statistics */
+.statistics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-row-label {
+  color: var(--text-secondary);
+}
+
+.stat-row-value {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.stat-row-highlight {
+  color: var(--success-color);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .balance-amount {
+    font-size: 2rem;
+  }
+
+  .pending-amount {
+    font-size: 1.5rem;
+  }
+
+  .stats-grid {
+    gap: var(--spacing-3);
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .payment-total {
+    font-size: 1.125rem;
+  }
+}

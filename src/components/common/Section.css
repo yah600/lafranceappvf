@@ -1,0 +1,31 @@
+.custom-section {
+  margin-bottom: var(--spacing-6);
+}
+
+.section-header {
+  margin-bottom: var(--spacing-4);
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.section-subtitle {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.section-content {
+  /* Content area */
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.25rem;
+  }
+}

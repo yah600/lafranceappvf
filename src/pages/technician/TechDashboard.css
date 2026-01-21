@@ -1,0 +1,263 @@
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-4);
+}
+
+.stat-card {
+  text-align: center;
+  padding: var(--spacing-5);
+}
+
+.stat-icon {
+  margin: 0 auto var(--spacing-2);
+}
+
+.stat-icon-blue {
+  color: var(--primary-color);
+}
+
+.stat-icon-green {
+  color: var(--success-color);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-1);
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* Urgent Jobs Section */
+.urgent-jobs-section {
+  background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-5);
+}
+
+.section-header-with-icon {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-4);
+}
+
+.section-header-with-icon h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.urgent-icon {
+  color: var(--error-color);
+}
+
+.urgent-jobs-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+/* Next Job Card */
+.next-job-card {
+  border-left: 4px solid var(--primary-color);
+}
+
+.job-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-3);
+}
+
+.job-info {
+  flex: 1;
+}
+
+.job-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-1) 0;
+}
+
+.job-client {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.job-schedule,
+.job-location {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-2);
+}
+
+.job-schedule {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.job-location {
+  color: var(--text-secondary);
+}
+
+.job-actions {
+  display: flex;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-4);
+}
+
+.btn-primary,
+.btn-outline {
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--border-radius-lg);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-dark) 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  background: white;
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.btn-outline:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+/* Quick Actions List */
+.quick-actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.action-item {
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.9375rem;
+}
+
+.action-item:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-sm);
+  transform: translateX(4px);
+}
+
+.action-item-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.action-item-icon {
+  color: var(--primary-color);
+}
+
+.action-item-arrow {
+  color: var(--text-tertiary);
+  transition: all var(--transition-fast);
+}
+
+.action-item:hover .action-item-arrow {
+  color: var(--primary-color);
+  transform: translateX(4px);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-8) var(--spacing-4);
+}
+
+.empty-icon {
+  color: var(--text-tertiary);
+  margin: 0 auto var(--spacing-4);
+}
+
+.empty-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.empty-message {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .stats-grid {
+    gap: var(--spacing-3);
+  }
+
+  .stat-card {
+    padding: var(--spacing-4);
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .job-title {
+    font-size: 1rem;
+  }
+
+  .urgent-jobs-section {
+    padding: var(--spacing-4);
+  }
+
+  .job-actions {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    width: 100%;
+  }
+}

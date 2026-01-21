@@ -1,9 +1,12 @@
 import { useNavigate } from 'react-router-dom'
-import { Page, Navbar, Block, Card, List, ListItem, Button } from 'konsta/react'
-import { Star, Award, Settings, LogOut, Phone, Mail, MapPin } from 'lucide-react'
+import { Star, Award, Settings, LogOut, Phone, Mail, MapPin, Bell, CheckCircle } from 'lucide-react'
 import { useAuthStore } from '@stores/authStore'
-import MobileBottomNav from '@components/layout/MobileBottomNav'
+import AppLayout from '@components/layout/AppLayout'
+import Section from '@components/common/Section'
+import Card from '@components/common/Card'
+import Button from '@components/common/Button'
 import { formatPhone } from '@utils/formatters'
+import './TechProfile.css'
 
 function TechProfile() {
   const navigate = useNavigate()
@@ -18,179 +21,194 @@ function TechProfile() {
   }
 
   return (
-    <Page>
-      <Navbar title="Mon Profil" />
+    <AppLayout title="Mon Profil" showHeader={true} showMobileNav={true}>
+      {/* Profile Header */}
+      <Section>
+        <Card className="profile-header">
+          <div className="profile-avatar">
+            {user?.name?.charAt(0)}
+          </div>
+          <h2 className="profile-name">{user?.name}</h2>
+          <p className="profile-email">{user?.email}</p>
 
-      <div className="pb-20">
-        {/* Profile Header */}
-        <Block>
-          <Card className="text-center">
-            <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-3xl font-bold">
-              {user?.name?.charAt(0)}
+          {/* Stats */}
+          <div className="profile-stats">
+            <div className="profile-stat">
+              <div className="profile-stat-value">
+                <Star size={20} fill="currentColor" className="star-icon" />
+                <span>{user?.rating || 0}</span>
+              </div>
+              <div className="profile-stat-label">Note</div>
             </div>
-            <h2 className="text-2xl font-bold mb-1">{user?.name}</h2>
-            <p className="text-gray-600 mb-4">{user?.email}</p>
+            <div className="profile-stat">
+              <div className="profile-stat-value profile-stat-success">
+                {user?.completedJobs || 0}
+              </div>
+              <div className="profile-stat-label">Jobs complétés</div>
+            </div>
+            <div className="profile-stat">
+              <div className="profile-stat-value profile-stat-primary">95%</div>
+              <div className="profile-stat-label">Acceptation</div>
+            </div>
+          </div>
+        </Card>
+      </Section>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 mt-4">
-              <div>
-                <div className="flex items-center justify-center gap-1 text-yellow-500 mb-1">
-                  <Star size={20} fill="currentColor" />
-                  <span className="font-bold text-xl">{user?.rating || 0}</span>
-                </div>
-                <div className="text-xs text-gray-600">Note</div>
+      {/* Contact Info */}
+      <Section title="Coordonnées">
+        <Card>
+          <div className="info-list">
+            <div className="info-item">
+              <div className="info-icon-wrapper">
+                <Phone size={24} className="info-icon" />
               </div>
-              <div>
-                <div className="text-2xl font-bold text-green-600">
-                  {user?.completedJobs || 0}
-                </div>
-                <div className="text-xs text-gray-600">Jobs complétés</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-blue-600">95%</div>
-                <div className="text-xs text-gray-600">Acceptation</div>
+              <div className="info-content">
+                <div className="info-label">Téléphone</div>
+                <div className="info-value">{formatPhone(user?.phone || '')}</div>
               </div>
             </div>
-          </Card>
-        </Block>
+            <div className="info-item">
+              <div className="info-icon-wrapper">
+                <Mail size={24} className="info-icon" />
+              </div>
+              <div className="info-content">
+                <div className="info-label">Email</div>
+                <div className="info-value">{user?.email}</div>
+              </div>
+            </div>
+            <div className="info-item">
+              <div className="info-icon-wrapper">
+                <MapPin size={24} className="info-icon" />
+              </div>
+              <div className="info-content">
+                <div className="info-label">Rayon de service</div>
+                <div className="info-value">50 km</div>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </Section>
 
-        {/* Contact Info */}
-        <Block>
-          <h2 className="text-xl font-bold mb-3">Coordonnées</h2>
-          <List strong inset>
-            <ListItem
-              title="Téléphone"
-              after={formatPhone(user?.phone || '')}
-              media={<Phone size={24} className="text-blue-600" />}
-            />
-            <ListItem
-              title="Email"
-              after={user?.email}
-              media={<Mail size={24} className="text-blue-600" />}
-            />
-            <ListItem
-              title="Rayon de service"
-              after="50 km"
-              media={<MapPin size={24} className="text-blue-600" />}
-            />
-          </List>
-        </Block>
-
-        {/* Licenses */}
-        <Block>
-          <h2 className="text-xl font-bold mb-3">Licences & Attestations</h2>
-          <List strong inset>
+      {/* Licenses */}
+      <Section title="Licences & Attestations">
+        <Card>
+          <div className="license-list">
             {user?.licenses && Object.entries(user.licenses).map(([type, number]) => (
-              <ListItem
-                key={type}
-                title={type}
-                after={
-                  <span className="text-green-600 text-sm font-semibold">
+              <div key={type} className="license-item">
+                <div className="license-icon-wrapper">
+                  <Award size={24} className="license-icon" />
+                </div>
+                <div className="license-content">
+                  <div className="license-type">{type}</div>
+                  <div className="license-status">
                     {number === 'Valid' ? '✓ Valide' : number}
-                  </span>
-                }
-                media={<Award size={24} className="text-green-600" />}
-              />
+                  </div>
+                </div>
+              </div>
             ))}
-          </List>
-        </Block>
+          </div>
+        </Card>
+      </Section>
 
-        {/* Divisions */}
-        <Block>
-          <h2 className="text-xl font-bold mb-3">Divisions</h2>
-          <Card>
-            <div className="flex flex-wrap gap-2">
-              {user?.divisions?.map((division) => (
-                <span
-                  key={division}
-                  className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
-                >
-                  {division.charAt(0).toUpperCase() + division.slice(1)}
-                </span>
-              ))}
+      {/* Divisions */}
+      <Section title="Divisions">
+        <Card>
+          <div className="divisions-list">
+            {user?.divisions?.map((division) => (
+              <span key={division} className="division-badge">
+                {division.charAt(0).toUpperCase() + division.slice(1)}
+              </span>
+            ))}
+          </div>
+        </Card>
+      </Section>
+
+      {/* Settings */}
+      <Section title="Paramètres">
+        <Card>
+          <div className="settings-list">
+            <button className="settings-item" type="button">
+              <div className="settings-icon-wrapper">
+                <Settings size={24} className="settings-icon" />
+              </div>
+              <div className="settings-content">
+                <span className="settings-label">Préférences</span>
+              </div>
+              <span className="settings-chevron">›</span>
+            </button>
+            <button className="settings-item" type="button">
+              <div className="settings-icon-wrapper">
+                <Bell size={24} className="settings-icon" />
+              </div>
+              <div className="settings-content">
+                <span className="settings-label">Notifications</span>
+                <span className="settings-value">Actif</span>
+              </div>
+              <span className="settings-chevron">›</span>
+            </button>
+            <button className="settings-item" type="button">
+              <div className="settings-icon-wrapper">
+                <CheckCircle size={24} className="settings-icon" />
+              </div>
+              <div className="settings-content">
+                <span className="settings-label">Disponibilité</span>
+                <span className="settings-value">Disponible</span>
+              </div>
+              <span className="settings-chevron">›</span>
+            </button>
+            <button className="settings-item" type="button">
+              <div className="settings-icon-wrapper">
+                <Settings size={24} className="settings-icon" />
+              </div>
+              <div className="settings-content">
+                <span className="settings-label">Accepter urgences</span>
+                <span className="settings-value">Oui</span>
+              </div>
+              <span className="settings-chevron">›</span>
+            </button>
+          </div>
+        </Card>
+      </Section>
+
+      {/* Performance */}
+      <Section title="Performance">
+        <Card>
+          <div className="performance-list">
+            <div className="performance-row">
+              <span className="performance-label">Taux d'acceptation:</span>
+              <span className="performance-value performance-success">95%</span>
             </div>
-          </Card>
-        </Block>
-
-        {/* Settings */}
-        <Block>
-          <h2 className="text-xl font-bold mb-3">Paramètres</h2>
-          <List strong inset>
-            <ListItem
-              link
-              chevron
-              title="Préférences"
-              media={<Settings size={24} className="text-gray-600" />}
-            />
-            <ListItem
-              link
-              chevron
-              title="Notifications"
-              after={
-                <span className="text-green-600 text-sm">Actif</span>
-              }
-            />
-            <ListItem
-              link
-              chevron
-              title="Disponibilité"
-              after={
-                <span className="text-green-600 text-sm">Disponible</span>
-              }
-            />
-            <ListItem
-              link
-              chevron
-              title="Accepter urgences"
-              after={
-                <span className="text-green-600 text-sm">Oui</span>
-              }
-            />
-          </List>
-        </Block>
-
-        {/* Performance */}
-        <Block>
-          <h2 className="text-xl font-bold mb-3">Performance</h2>
-          <Card>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Taux d'acceptation:</span>
-                <span className="font-semibold text-green-600">95%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Taux d'annulation:</span>
-                <span className="font-semibold text-green-600">2%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Temps de réponse moyen:</span>
-                <span className="font-semibold">4 min</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Note moyenne:</span>
-                <span className="font-semibold text-yellow-600">
-                  {user?.rating || 0} ⭐
-                </span>
-              </div>
+            <div className="performance-row">
+              <span className="performance-label">Taux d'annulation:</span>
+              <span className="performance-value performance-success">2%</span>
             </div>
-          </Card>
-        </Block>
+            <div className="performance-row">
+              <span className="performance-label">Temps de réponse moyen:</span>
+              <span className="performance-value">4 min</span>
+            </div>
+            <div className="performance-row">
+              <span className="performance-label">Note moyenne:</span>
+              <span className="performance-value performance-warning">
+                {user?.rating || 0} ⭐
+              </span>
+            </div>
+          </div>
+        </Card>
+      </Section>
 
-        {/* Logout */}
-        <Block>
-          <Button
-            large
-            onClick={handleLogout}
-            className="w-full bg-red-500 text-white"
-          >
-            <LogOut size={20} className="mr-2" />
-            Se déconnecter
-          </Button>
-        </Block>
-      </div>
-
-      <MobileBottomNav />
-    </Page>
+      {/* Logout */}
+      <Section>
+        <Button
+          size="large"
+          variant="danger"
+          onClick={handleLogout}
+          fullWidth={true}
+          icon={<LogOut size={20} />}
+        >
+          Se déconnecter
+        </Button>
+      </Section>
+    </AppLayout>
   )
 }
 

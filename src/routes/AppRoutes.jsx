@@ -24,6 +24,7 @@ import ClientPayment from '@pages/client/ClientPayment'
 
 // Dispatcher pages
 import DispatchDashboard from '@pages/dispatcher/DispatchDashboard'
+import DispatchCreateUrgent from '@pages/dispatcher/DispatchCreateUrgent'
 
 // Admin pages
 import AdminOverview from '@pages/admin/AdminOverview'
@@ -117,7 +118,7 @@ function AppRoutes() {
                 <Route path="dashboard" element={<DispatchDashboard />} />
                 <Route path="jobs" element={<Placeholder title="All Jobs" />} />
                 <Route path="job/:id" element={<Placeholder title="Job Detail" />} />
-                <Route path="create-urgent" element={<Placeholder title="Create Urgent Job" />} />
+                <Route path="create-urgent" element={<DispatchCreateUrgent />} />
                 <Route path="assign/:jobId" element={<Placeholder title="Assign Job" />} />
                 <Route path="technicians" element={<Placeholder title="Technicians" />} />
                 <Route path="clients" element={<Placeholder title="Clients" />} />

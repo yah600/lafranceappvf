@@ -3,6 +3,9 @@ import { useAuthStore } from '@stores/authStore'
 import ProtectedRoute from './ProtectedRoute'
 import RoleRoute from './RoleRoute'
 
+// Public pages
+import Login from '@pages/public/Login'
+
 // Placeholder component for pages we haven't built yet
 const Placeholder = ({ title }) => (
   <div style={{ padding: '20px' }}>
@@ -38,7 +41,7 @@ function AppRoutes() {
       {/* Public Routes */}
       <Route path="/" element={<Navigate to={getRootRedirect()} replace />} />
       <Route path="/landing" element={<Placeholder title="Landing Page" />} />
-      <Route path="/login" element={<Placeholder title="Login" />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/signup/client" element={<Placeholder title="Client Signup" />} />
       <Route path="/signup/technician" element={<Placeholder title="Technician Signup" />} />
 

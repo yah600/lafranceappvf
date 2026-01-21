@@ -13,6 +13,13 @@ import TechJobs from '@pages/technician/TechJobs'
 import TechEarnings from '@pages/technician/TechEarnings'
 import TechProfile from '@pages/technician/TechProfile'
 
+// Client pages
+import ClientDashboard from '@pages/client/ClientDashboard'
+import ClientRequestUrgent from '@pages/client/ClientRequestUrgent'
+
+// Dispatcher pages
+import DispatchDashboard from '@pages/dispatcher/DispatchDashboard'
+
 // Placeholder component for pages we haven't built yet
 const Placeholder = ({ title }) => (
   <div style={{ padding: '20px' }}>
@@ -77,8 +84,8 @@ function AppRoutes() {
           <ProtectedRoute>
             <RoleRoute allowedRoles={['client']}>
               <Routes>
-                <Route path="dashboard" element={<Placeholder title="Client Dashboard" />} />
-                <Route path="request/urgent" element={<Placeholder title="Urgent Request" />} />
+                <Route path="dashboard" element={<ClientDashboard />} />
+                <Route path="request/urgent" element={<ClientRequestUrgent />} />
                 <Route path="request/scheduled" element={<Placeholder title="Scheduled Request" />} />
                 <Route path="jobs" element={<Placeholder title="My Jobs" />} />
                 <Route path="job/:id/tracking" element={<Placeholder title="Job Tracking" />} />
@@ -99,7 +106,7 @@ function AppRoutes() {
           <ProtectedRoute>
             <RoleRoute allowedRoles={['dispatcher', 'division-head', 'super-admin']}>
               <Routes>
-                <Route path="dashboard" element={<Placeholder title="Dispatch Dashboard" />} />
+                <Route path="dashboard" element={<DispatchDashboard />} />
                 <Route path="jobs" element={<Placeholder title="All Jobs" />} />
                 <Route path="job/:id" element={<Placeholder title="Job Detail" />} />
                 <Route path="create-urgent" element={<Placeholder title="Create Urgent Job" />} />

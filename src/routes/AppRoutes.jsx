@@ -20,6 +20,9 @@ import ClientRequestUrgent from '@pages/client/ClientRequestUrgent'
 // Dispatcher pages
 import DispatchDashboard from '@pages/dispatcher/DispatchDashboard'
 
+// Admin pages
+import AdminOverview from '@pages/admin/AdminOverview'
+
 // Placeholder component for pages we haven't built yet
 const Placeholder = ({ title }) => (
   <div style={{ padding: '20px' }}>
@@ -143,7 +146,7 @@ function AppRoutes() {
           <ProtectedRoute>
             <RoleRoute allowedRoles={['super-admin']}>
               <Routes>
-                <Route path="overview" element={<Placeholder title="Admin Overview" />} />
+                <Route path="overview" element={<AdminOverview />} />
                 <Route path="division/:divisionId" element={<Placeholder title="Division Detail" />} />
                 <Route path="analytics" element={<Placeholder title="Global Analytics" />} />
                 <Route path="technicians" element={<Placeholder title="All Technicians" />} />

@@ -4,10 +4,10 @@ import { Plus, Users, MapPin, Phone, Clock } from 'lucide-react'
 import { useAuthStore } from '@stores/authStore'
 import { useJobsStore } from '@stores/jobsStore'
 import AppLayout from '@components/layout/AppLayout'
-import Section from '@components/common/Section'
+import DashboardGrid from '@components/layout/DashboardGrid'
+import StatCard from '@components/common/StatCard'
 import Card from '@components/common/Card'
 import Button from '@components/common/Button'
-import TabBar from '@components/common/TabBar'
 import StatusBadge from '@components/common/StatusBadge'
 import { formatDate, formatTime, formatCurrency, formatAddress } from '@utils/formatters'
 import { getDivisionColor } from '@config/divisions'
@@ -20,8 +20,6 @@ function DispatchDashboard() {
   const activeDivision = useAuthStore((state) => state.activeDivision)
   const jobs = useJobsStore((state) => state.jobs)
   const setJobs = useJobsStore((state) => state.setJobs)
-
-  const [view, setView] = useState('kanban') // kanban | list
 
   // Initialize jobs
   useEffect(() => {
@@ -115,102 +113,103 @@ function DispatchDashboard() {
 
   return (
     <AppLayout
-      title={`Dispatch - ${activeDivision || 'Toutes'}`}
-      subtitle={`${divisionJobs.length} travaux actifs`}
-      showHeader={true}
+      pageTitle={`Dispatch - ${activeDivision || 'Toutes'}`}
+      pageDescription={`${divisionJobs.length} travaux actifs`}
+      breadcrumbs={['Dispatch', 'Dashboard']}
+      showSidebar={true}
       showMobileNav={true}
     >
       <div className="dispatch-dashboard">
-        {/* Actions */}
-        <Section>
+        {/* Quick Actions */}
+        <div className="dashboard-section">
           <div className="dispatch-actions">
-            <Button
+            <button
+              className="btn-gradient btn-primary btn-create-urgent"
               onClick={() => navigate('/dispatch/create-urgent')}
-              icon={<Plus size={20} />}
-              fullWidth
             >
+              <Plus size={20} />
               Créer Urgence
-            </Button>
-            <Button
-              variant="outline"
+            </button>
+            <button
+              className="btn-outline btn-secondary"
               onClick={() => navigate('/dispatch/technicians')}
-              icon={<Users size={20} />}
-            />
+            >
+              <Users size={20} />
+              Techniciens
+            </button>
           </div>
-        </Section>
+        </div>
 
-        {/* View Toggle */}
-        <Section>
-          <TabBar>
-            <TabBar.Tab
-              active={view === 'kanban'}
-              onClick={() => setView('kanban')}
-              label="Kanban"
-            />
-            <TabBar.Tab
-              active={view === 'list'}
-              onClick={() => setView('list')}
-              label="Liste"
-            />
-          </TabBar>
-        </Section>
-
-        {/* Stats */}
-        <Section>
-          <div className="dispatch-stats">
-            {Object.entries(columns).map(([key, col]) => (
-              <Card key={key} className="stat-card">
-                <div className="stat-value">{col.count}</div>
-                <div className="stat-label">{col.title}</div>
-              </Card>
-            ))}
-          </div>
-        </Section>
+        {/* Stats Cards */}
+        <DashboardGrid columns={4} gap="md">
+          <StatCard
+            title="Incoming"
+            value={columns.incoming.count}
+            icon="📥"
+            gradient="blue"
+            trendLabel="nouveaux"
+          />
+          <StatCard
+            title="Assigned"
+            value={columns.assigned.count}
+            icon="👤"
+            gradient="purple"
+            trendLabel="assignés"
+          />
+          <StatCard
+            title="In Progress"
+            value={columns.inProgress.count}
+            icon="⚙️"
+            gradient="green"
+            trendLabel="en cours"
+          />
+          <StatCard
+            title="Completed"
+            value={columns.completed.count}
+            icon="✅"
+            gradient="orange"
+            trendLabel="complétés"
+          />
+        </DashboardGrid>
 
         {/* Kanban Board */}
-        {view === 'kanban' && (
-          <Section>
-            <div className="kanban-board">
-              {Object.entries(columns).map(([key, column]) => (
-                <div key={key} className="kanban-column">
-                  <div className={`kanban-column-header ${key}`}>
-                    <span className="kanban-column-title">{column.title}</span>
-                    <span className="kanban-column-count">{column.count}</span>
-                  </div>
-                  <div className="kanban-column-body">
-                    {column.jobs.length === 0 ? (
-                      <div className="kanban-empty">
-                        Aucun travail
-                      </div>
-                    ) : (
-                      column.jobs.map(renderJobCard)
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Section>
-        )}
+        <div className="dashboard-section">
+          <div className="section-header">
+            <h2 className="section-title">Vue Kanban</h2>
+            <p className="section-subtitle">Glissez-déposez pour changer le statut</p>
+          </div>
 
-        {/* List View */}
-        {view === 'list' && (
-          <Section>
-            {divisionJobs.length === 0 ? (
-              <div className="list-empty">
-                <Users size={48} />
-                <p>Aucun travail</p>
+          <div className="kanban-board">
+            {Object.entries(columns).map(([key, column]) => (
+              <div key={key} className="kanban-column">
+                <div className={`kanban-column-header kanban-header-${key}`}>
+                  <span className="kanban-column-title">{column.title}</span>
+                  <span className="kanban-column-count">{column.count}</span>
+                </div>
+                <div className="kanban-column-body">
+                  {column.jobs.length === 0 ? (
+                    <div className="kanban-empty">
+                      Aucun travail
+                    </div>
+                  ) : (
+                    column.jobs.map(renderJobCard)
+                  )}
+                </div>
               </div>
-            ) : (
-              <div className="list-view">
-                {divisionJobs.map(renderJobCard)}
-              </div>
-            )}
-          </Section>
-        )}
+            ))}
+          </div>
+        </div>
 
         {/* Technicians Summary */}
-        <Section title="Techniciens Disponibles">
-          <Card>
+        <div className="dashboard-section">
+          <div className="section-header">
+            <h2 className="section-title">
+              <Users size={24} className="section-icon" />
+              Techniciens Disponibles
+            </h2>
+          </div>
+
+          <Card className="technicians-card soft-card">
             <div className="technicians-stats">
               <div className="tech-stat">
                 <div className="tech-stat-value available">3</div>
@@ -225,14 +224,14 @@ function DispatchDashboard() {
                 <div className="tech-stat-label">Hors service</div>
               </div>
             </div>
-            <Button
-              fullWidth
+            <button
+              className="btn-gradient btn-primary"
               onClick={() => navigate('/dispatch/technicians')}
             >
               Voir Tous les Techniciens
-            </Button>
+            </button>
           </Card>
-        </Section>
+        </div>
       </div>
     </AppLayout>
   )

@@ -1,243 +1,369 @@
+/* ===== SOFT UI DISPATCH DASHBOARD ===== */
+
 .dispatch-dashboard {
-  padding-bottom: 80px;
+  padding-bottom: var(--spacing-12);
 }
 
-/* Actions */
-.dispatch-actions {
+/* Dashboard Section */
+.dashboard-section {
+  margin-bottom: var(--spacing-8);
+}
+
+.section-header {
+  margin-bottom: var(--spacing-6);
+}
+
+.section-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-dark);
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin: 0;
 }
 
-.dispatch-actions > button:first-child {
-  flex: 1;
+.section-icon {
+  color: var(--primary-color);
 }
 
-/* Stats Grid */
-.dispatch-stats {
+.section-subtitle {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  margin: var(--spacing-2) 0 0 0;
+}
+
+/* Quick Actions */
+.dispatch-actions {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.5rem;
+  grid-template-columns: 1fr auto;
+  gap: var(--spacing-3);
 }
 
-.stat-card {
-  text-align: center;
-  padding: 0.75rem;
+.btn-gradient {
+  padding: var(--spacing-3) var(--spacing-6);
+  border-radius: var(--radius-base);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
 }
 
-.stat-value {
-  font-size: 1.5rem;
-  font-weight: bold;
-  line-height: 1;
-  margin-bottom: 0.25rem;
+.btn-gradient.btn-primary {
+  background: var(--gradient-blue);
+  color: white;
+  box-shadow: var(--shadow-blue);
 }
 
-.stat-label {
-  font-size: 0.75rem;
-  color: var(--color-text-secondary);
+.btn-gradient.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px -4px rgba(33, 82, 255, 0.3);
+}
+
+.btn-create-urgent {
+  grid-column: 1;
+}
+
+.btn-outline {
+  padding: var(--spacing-3) var(--spacing-6);
+  border-radius: var(--radius-base);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
+  border: 2px solid var(--border-color);
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.btn-outline:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background: rgba(94, 114, 228, 0.05);
 }
 
 /* Kanban Board */
 .kanban-board {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-4);
+  overflow-x: auto;
 }
 
 .kanban-column {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft-sm);
+  min-width: 280px;
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--border-color-light);
 }
 
 .kanban-column-header {
+  padding: var(--spacing-4);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem;
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
-  font-weight: bold;
-  font-size: 0.875rem;
+  font-weight: var(--font-weight-bold);
+  color: white;
+  position: relative;
+  overflow: hidden;
 }
 
-.kanban-column-header.incoming {
-  background-color: #f3f4f6;
-  color: #374151;
+.kanban-header-incoming {
+  background: var(--gradient-blue);
+  box-shadow: var(--shadow-blue);
 }
 
-.kanban-column-header.assigned {
-  background-color: #dbeafe;
-  color: #1e40af;
+.kanban-header-assigned {
+  background: var(--gradient-purple);
+  box-shadow: var(--shadow-purple);
 }
 
-.kanban-column-header.inProgress {
-  background-color: #d1fae5;
-  color: #065f46;
+.kanban-header-inProgress {
+  background: var(--gradient-green);
+  box-shadow: var(--shadow-green);
 }
 
-.kanban-column-header.completed {
-  background-color: #a7f3d0;
-  color: #064e3b;
+.kanban-header-completed {
+  background: var(--gradient-orange);
+  box-shadow: var(--shadow-orange);
 }
 
 .kanban-column-title {
-  font-weight: bold;
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: var(--font-weight-bold);
 }
 
 .kanban-column-count {
-  background-color: white;
-  padding: 0.25rem 0.5rem;
-  border-radius: var(--border-radius);
-  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.25);
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  backdrop-filter: blur(10px);
 }
 
 .kanban-column-body {
-  background-color: #f9fafb;
-  padding: 0.75rem;
-  border-radius: 0 0 var(--border-radius) var(--border-radius);
-  min-height: 100px;
+  padding: var(--spacing-4);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  min-height: 400px;
+  max-height: 600px;
+  overflow-y: auto;
 }
 
 .kanban-empty {
   text-align: center;
-  color: #9ca3af;
-  padding: 1rem;
-  font-size: 0.875rem;
+  padding: var(--spacing-8) var(--spacing-4);
+  color: var(--text-tertiary);
+  font-size: var(--font-size-sm);
+  font-style: italic;
 }
 
 /* Job Cards */
 .job-card {
-  margin-bottom: 0.75rem;
+  background: var(--bg-card);
+  border-radius: var(--radius-base);
+  padding: var(--spacing-4);
   cursor: pointer;
-  transition: box-shadow 0.2s ease;
+  transition: all var(--transition-base);
+  border: 1px solid var(--border-color-light);
+  border-left-width: 4px;
 }
 
 .job-card:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft-md);
 }
 
 .job-card-content {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--spacing-3);
 }
 
 .job-card-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: var(--spacing-2);
 }
 
 .job-card-info {
   flex: 1;
+  min-width: 0;
 }
 
 .job-id {
-  font-weight: bold;
-  font-size: 0.875rem;
-  margin-bottom: 0.25rem;
-  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-1);
 }
 
 .job-title {
-  font-weight: 600;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-dark);
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .job-card-details {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  font-size: 0.875rem;
-  color: var(--color-text-secondary);
+  gap: var(--spacing-2);
 }
 
 .job-detail {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.job-detail svg {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
 }
 
 .job-detail.technician {
-  color: var(--color-primary);
+  color: var(--primary-color);
+  font-weight: var(--font-weight-semibold);
 }
 
 .job-amount {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #059669;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-success);
+  padding-top: var(--spacing-2);
+  border-top: 1px solid var(--border-color-light);
 }
 
 .job-urgent-badge {
-  font-size: 0.75rem;
-  background-color: #fef2f2;
-  color: #991b1b;
-  padding: 0.25rem 0.5rem;
-  border-radius: var(--border-radius);
-}
-
-/* List View */
-.list-view {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.list-empty {
+  font-size: var(--font-size-xs);
+  color: var(--color-error);
+  background: linear-gradient(310deg, rgba(244, 67, 54, 0.1) 0%, rgba(244, 67, 54, 0.15) 100%);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-base);
+  font-weight: var(--font-weight-semibold);
   text-align: center;
-  padding: 3rem 1rem;
-  color: #d1d5db;
 }
 
-.list-empty svg {
-  margin: 0 auto 1rem;
+/* Technicians Card */
+.technicians-card.soft-card {
+  padding: var(--spacing-6);
+  border: 1px solid var(--border-color-light);
 }
 
-.list-empty p {
-  color: var(--color-text-secondary);
-  margin: 0;
-}
-
-/* Technicians Stats */
 .technicians-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  text-align: center;
-  margin-bottom: 1rem;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-6);
 }
 
 .tech-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  text-align: center;
 }
 
 .tech-stat-value {
-  font-size: 1.5rem;
-  font-weight: bold;
-  line-height: 1;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-2);
 }
 
 .tech-stat-value.available {
-  color: #059669;
+  color: var(--color-success);
 }
 
 .tech-stat-value.busy {
-  color: #ea580c;
+  color: var(--color-warning);
 }
 
 .tech-stat-value.offline {
-  color: #6b7280;
+  color: var(--text-tertiary);
 }
 
 .tech-stat-label {
-  font-size: 0.75rem;
-  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
 }
 
-/* Responsive */
-@media (max-width: 640px) {
-  .dispatch-stats {
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 1200px) {
+  .kanban-board {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .dispatch-dashboard {
+    padding-bottom: var(--spacing-8);
+  }
+
+  .dashboard-section {
+    margin-bottom: var(--spacing-6);
+  }
+
+  .section-header {
+    margin-bottom: var(--spacing-4);
+  }
+
+  .section-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .dispatch-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-create-urgent {
+    grid-column: auto;
+  }
+
+  .kanban-board {
+    grid-template-columns: 1fr;
+  }
+
+  .kanban-column {
+    min-width: 100%;
+  }
+
+  .kanban-column-body {
+    max-height: 400px;
+  }
+
+  .technicians-stats {
+    gap: var(--spacing-3);
+  }
+
+  .tech-stat-value {
+    font-size: var(--font-size-2xl);
+  }
+
+  .technicians-card.soft-card {
+    padding: var(--spacing-4);
   }
 }

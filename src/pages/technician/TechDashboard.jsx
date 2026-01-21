@@ -1,14 +1,15 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Briefcase, Clock, TrendingUp, AlertCircle, Phone, ArrowRight, MapPin } from 'lucide-react'
+import { Briefcase, TrendingUp, AlertCircle, Clock, MapPin, Phone, Calendar, DollarSign } from 'lucide-react'
 import { useAuthStore } from '@stores/authStore'
 import { useJobsStore } from '@stores/jobsStore'
 import { useBiddingStore } from '@stores/biddingStore'
 import { useNotificationsStore } from '@stores/notificationsStore'
 import { useUIStore } from '@stores/uiStore'
 import AppLayout from '@components/layout/AppLayout'
+import DashboardGrid from '@components/layout/DashboardGrid'
+import StatCard from '@components/common/StatCard'
 import Card from '@components/common/Card'
-import Section from '@components/common/Section'
 import BiddingJobCard from '@components/cards/BiddingJobCard'
 import StatusBadge from '@components/common/StatusBadge'
 import { formatCurrency, formatDate, formatTime } from '@utils/formatters'
@@ -52,6 +53,7 @@ function TechDashboard() {
     const jobDate = (job.scheduledDate || job.createdAt)?.split('T')[0]
     return jobDate === today
   })
+  const monthlyEarnings = 12450
   const nextJob = myJobs
     .filter((job) => job.status === 'assigned')
     .sort((a, b) => new Date(a.scheduledDate) - new Date(b.scheduledDate))[0]
@@ -76,36 +78,66 @@ function TechDashboard() {
 
   return (
     <AppLayout
-      title={`Bonjour, ${user?.name?.split(' ')[0]} 👋`}
-      subtitle={`⭐ ${user?.rating || 0} | ${user?.completedJobs || 0} travaux complétés`}
+      pageTitle={`Bonjour, ${user?.name?.split(' ')[0]} 👋`}
+      pageDescription="Gérez vos travaux et suivez vos revenus en temps réel"
+      breadcrumbs={['Accueil', 'Dashboard']}
+      showSidebar={false}
       showMobileNav={true}
-      showHeader={true}
     >
       {/* Stats Cards */}
-      <Section>
-        <div className="stats-grid">
-          <Card className="stat-card">
-            <Briefcase size={28} className="stat-icon stat-icon-blue" />
-            <div className="stat-value">{todayJobs.length}</div>
-            <div className="stat-label">Aujourd'hui</div>
-          </Card>
-          <Card className="stat-card">
-            <TrendingUp size={28} className="stat-icon stat-icon-green" />
-            <div className="stat-value">{formatCurrency(12450, false)}</div>
-            <div className="stat-label">Ce mois</div>
-          </Card>
-        </div>
-      </Section>
+      <DashboardGrid columns={4} gap="md">
+        <StatCard
+          title="Travaux Aujourd'hui"
+          value={todayJobs.length}
+          icon="💼"
+          gradient="blue"
+          trend="up"
+          trendValue="+2"
+          trendLabel="vs hier"
+        />
+        <StatCard
+          title="Revenus du Mois"
+          value={formatCurrency(monthlyEarnings, false)}
+          icon="💰"
+          gradient="green"
+          trend="up"
+          trendValue="+12%"
+          trendLabel="vs mois dernier"
+        />
+        <StatCard
+          title="Note Moyenne"
+          value="4.8"
+          icon="⭐"
+          gradient="purple"
+          trend="up"
+          trendValue="+0.2"
+          trendLabel="ce mois"
+        />
+        <StatCard
+          title="Taux d'Acceptation"
+          value="95%"
+          icon="✅"
+          gradient="orange"
+          trend="stable"
+          trendLabel="excellent"
+        />
+      </DashboardGrid>
 
       {/* Urgent Jobs - Bidding */}
       {activeBiddings.length > 0 && (
-        <Section className="urgent-jobs-section">
-          <div className="section-header-with-icon">
-            <AlertCircle size={24} className="urgent-icon" />
-            <h2>Urgences Disponibles ({activeBiddings.length})</h2>
+        <div className="dashboard-section urgent-section">
+          <div className="section-header">
+            <div className="section-title-group">
+              <h2 className="section-title">
+                <AlertCircle size={24} className="section-icon urgent-icon" />
+                Urgences Disponibles
+              </h2>
+              <span className="badge badge-urgent">{activeBiddings.length} actives</span>
+            </div>
+            <p className="section-subtitle">Enchérissez rapidement pour remporter ces travaux</p>
           </div>
 
-          <div className="urgent-jobs-list">
+          <div className="bidding-jobs-grid">
             {activeBiddings.map((job) => (
               <BiddingJobCard
                 key={job.id}
@@ -115,88 +147,137 @@ function TechDashboard() {
               />
             ))}
           </div>
-        </Section>
+        </div>
       )}
 
       {/* Next Scheduled Job */}
       {nextJob && (
-        <Section title="Prochain Travail">
-          <Card className="next-job-card">
+        <div className="dashboard-section">
+          <div className="section-header">
+            <h2 className="section-title">
+              <Calendar size={24} className="section-icon" />
+              Prochain Travail Programmé
+            </h2>
+          </div>
+
+          <Card className="next-job-card soft-card" onClick={() => navigate(`/tech/job/${nextJob.id}/active`)}>
             <div className="job-card-header">
-              <div className="job-info">
-                <h3 className="job-title">{nextJob.serviceName}</h3>
-                <p className="job-client">{nextJob.clientName}</p>
+              <div className="job-badge-group">
+                <div className="job-priority priority-high">Priorité Haute</div>
+                <StatusBadge status={nextJob.status} />
               </div>
-              <StatusBadge status={nextJob.status} />
             </div>
 
-            <div className="job-schedule">
-              <Clock size={16} />
-              <span>{formatDate(nextJob.scheduledDate)} à {nextJob.scheduledTime}</span>
+            <h3 className="job-title-large">{nextJob.serviceName}</h3>
+            <p className="job-client-name">{nextJob.clientName}</p>
+
+            <div className="job-details-grid">
+              <div className="job-detail-item">
+                <Clock size={18} className="detail-icon icon-blue" />
+                <div>
+                  <div className="detail-label">Date & Heure</div>
+                  <div className="detail-value">{formatDate(nextJob.scheduledDate)} à {nextJob.scheduledTime}</div>
+                </div>
+              </div>
+
+              <div className="job-detail-item">
+                <MapPin size={18} className="detail-icon icon-green" />
+                <div>
+                  <div className="detail-label">Adresse</div>
+                  <div className="detail-value">{nextJob.address.street}, {nextJob.address.city}</div>
+                </div>
+              </div>
+
+              <div className="job-detail-item">
+                <DollarSign size={18} className="detail-icon icon-purple" />
+                <div>
+                  <div className="detail-label">Montant</div>
+                  <div className="detail-value">{formatCurrency(nextJob.amount)}</div>
+                </div>
+              </div>
+
+              <div className="job-detail-item">
+                <Phone size={18} className="detail-icon icon-orange" />
+                <div>
+                  <div className="detail-label">Contact</div>
+                  <div className="detail-value">{nextJob.clientPhone}</div>
+                </div>
+              </div>
             </div>
 
-            <div className="job-location">
-              <MapPin size={16} />
-              <span>{nextJob.address.street}, {nextJob.address.city}</span>
-            </div>
-
-            <div className="job-actions">
+            <div className="job-actions-row">
               <button
-                className="btn-primary flex-1"
-                onClick={() => navigate(`/tech/job/${nextJob.id}/active`)}
+                className="btn-gradient btn-primary"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  navigate(`/tech/job/${nextJob.id}/active`)
+                }}
               >
-                Démarrer GPS
+                Démarrer le Travail
               </button>
               <button
-                className="btn-outline flex-1"
-                onClick={() => window.open(`tel:${nextJob.clientPhone}`)}
+                className="btn-outline btn-secondary"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  window.open(`tel:${nextJob.clientPhone}`)
+                }}
               >
                 <Phone size={18} />
                 Appeler
               </button>
             </div>
           </Card>
-        </Section>
+        </div>
       )}
 
       {/* Quick Actions */}
-      <Section title="Actions Rapides">
-        <div className="quick-actions-list">
-          <button className="action-item" onClick={() => navigate('/tech/jobs')}>
-            <div className="action-item-content">
-              <Briefcase size={20} className="action-item-icon" />
-              <span>Voir tous les travaux</span>
-            </div>
-            <ArrowRight size={18} className="action-item-arrow" />
-          </button>
-          <button className="action-item" onClick={() => navigate('/tech/earnings')}>
-            <div className="action-item-content">
-              <TrendingUp size={20} className="action-item-icon" />
-              <span>Mes revenus</span>
-            </div>
-            <ArrowRight size={18} className="action-item-arrow" />
-          </button>
-          <button className="action-item" onClick={() => navigate('/tech/profile')}>
-            <div className="action-item-content">
-              <Briefcase size={20} className="action-item-icon" />
-              <span>Mon profil</span>
-            </div>
-            <ArrowRight size={18} className="action-item-arrow" />
-          </button>
+      <div className="dashboard-section">
+        <div className="section-header">
+          <h2 className="section-title">Actions Rapides</h2>
         </div>
-      </Section>
+
+        <DashboardGrid columns={3} gap="md">
+          <Card className="action-card soft-card" onClick={() => navigate('/tech/jobs')}>
+            <div className="action-icon-wrapper gradient-blue">
+              <Briefcase size={28} />
+            </div>
+            <h3 className="action-title">Tous les Travaux</h3>
+            <p className="action-description">Voir la liste complète</p>
+            <div className="action-arrow">→</div>
+          </Card>
+
+          <Card className="action-card soft-card" onClick={() => navigate('/tech/earnings')}>
+            <div className="action-icon-wrapper gradient-green">
+              <TrendingUp size={28} />
+            </div>
+            <h3 className="action-title">Mes Revenus</h3>
+            <p className="action-description">Paiements et statistiques</p>
+            <div className="action-arrow">→</div>
+          </Card>
+
+          <Card className="action-card soft-card" onClick={() => navigate('/tech/profile')}>
+            <div className="action-icon-wrapper gradient-purple">
+              <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="14" cy="7" r="4" />
+                <path d="M6 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2" />
+              </svg>
+            </div>
+            <h3 className="action-title">Mon Profil</h3>
+            <p className="action-description">Paramètres et licences</p>
+            <div className="action-arrow">→</div>
+          </Card>
+        </DashboardGrid>
+      </div>
 
       {/* Empty state if no urgent jobs */}
       {activeBiddings.length === 0 && !nextJob && (
-        <Section>
-          <div className="empty-state">
-            <Briefcase size={48} className="empty-icon" />
-            <h3 className="empty-title">Aucun travail disponible</h3>
-            <p className="empty-message">
-              Vous serez notifié dès qu'une nouvelle urgence sera disponible
-            </p>
-          </div>
-        </Section>
+        <Card className="empty-state-card">
+          <Briefcase size={64} className="empty-icon" />
+          <h3 className="empty-title">Aucun travail disponible pour le moment</h3>
+          <p className="empty-message">
+            Vous serez notifié dès qu'une nouvelle urgence sera disponible
+          </p>
+        </Card>
       )}
     </AppLayout>
   )

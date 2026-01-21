@@ -1,0 +1,305 @@
+/* ===== STAT CARD - SOFT UI DESIGN ===== */
+
+.stat-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-6);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-soft-sm);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  opacity: 1;
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-base);
+  z-index: 0;
+}
+
+/* Gradient Variants */
+.stat-card-gradient-blue::before {
+  background: var(--gradient-blue);
+}
+
+.stat-card-gradient-purple::before {
+  background: var(--gradient-purple);
+}
+
+.stat-card-gradient-green::before {
+  background: var(--gradient-green);
+}
+
+.stat-card-gradient-orange::before {
+  background: var(--gradient-orange);
+}
+
+.stat-card-gradient-pink::before {
+  background: var(--gradient-pink);
+}
+
+.stat-card-gradient-dark::before {
+  background: var(--gradient-dark);
+}
+
+.stat-card-gradient-info::before {
+  background: var(--gradient-info);
+}
+
+.stat-card-gradient-success::before {
+  background: var(--gradient-success);
+}
+
+.stat-card-gradient-warning::before {
+  background: var(--gradient-warning);
+}
+
+/* Hover Effect */
+.stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.stat-card-gradient-blue:hover {
+  box-shadow: var(--shadow-blue);
+}
+
+.stat-card-gradient-purple:hover {
+  box-shadow: var(--shadow-purple);
+}
+
+.stat-card-gradient-green:hover,
+.stat-card-gradient-success:hover {
+  box-shadow: var(--shadow-green);
+}
+
+.stat-card-gradient-orange:hover,
+.stat-card-gradient-warning:hover,
+.stat-card-gradient-pink:hover {
+  box-shadow: var(--shadow-orange);
+}
+
+.stat-card-gradient-dark:hover,
+.stat-card-gradient-info:hover {
+  box-shadow: var(--shadow-dark);
+}
+
+.stat-card-clickable {
+  cursor: pointer;
+}
+
+.stat-card-clickable:active {
+  transform: translateY(-2px);
+}
+
+/* ===== STAT CARD CONTENT ===== */
+
+.stat-card-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.stat-card-main {
+  flex: 1;
+}
+
+.stat-card-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-inverse);
+  margin: 0 0 var(--spacing-2) 0;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-card-value {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-inverse);
+  line-height: 1;
+  font-family: var(--font-family-heading);
+}
+
+/* ===== STAT CARD ICON ===== */
+
+.stat-card-icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-3xl);
+  flex-shrink: 0;
+  backdrop-filter: var(--blur-sm);
+  box-shadow: var(--shadow-soft-xs);
+  transition: all var(--transition-base);
+}
+
+.stat-card:hover .stat-card-icon {
+  transform: scale(1.05) rotate(5deg);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ===== STAT CARD FOOTER ===== */
+
+.stat-card-footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding-top: var(--spacing-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-card-trend {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-base);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: var(--blur-sm);
+}
+
+.trend-up {
+  color: var(--text-inverse);
+}
+
+.trend-down {
+  color: var(--text-inverse);
+}
+
+.trend-neutral {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.trend-value {
+  font-weight: var(--font-weight-bold);
+}
+
+.trend-label {
+  font-size: var(--font-size-xs);
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+  .stat-card {
+    padding: var(--spacing-5);
+  }
+
+  .stat-card-value {
+    font-size: var(--font-size-3xl);
+  }
+
+  .stat-card-icon {
+    width: 48px;
+    height: 48px;
+    font-size: var(--font-size-2xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-card-content {
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+
+  .stat-card-icon {
+    align-self: flex-end;
+  }
+
+  .stat-card-value {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+
+.stat-card-clickable:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 4px;
+}
+
+/* ===== LOADING STATE ===== */
+
+.stat-card-loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.stat-card-loading .stat-card-value {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ===== COMPACT VARIANT ===== */
+
+.stat-card-compact {
+  padding: var(--spacing-4);
+}
+
+.stat-card-compact .stat-card-value {
+  font-size: var(--font-size-2xl);
+}
+
+.stat-card-compact .stat-card-icon {
+  width: 40px;
+  height: 40px;
+  font-size: var(--font-size-xl);
+}
+
+/* ===== SHIMMER EFFECT (Optional) ===== */
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  bottom: -50%;
+  left: -50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotateZ(45deg) translateY(-100%);
+  transition: transform 0.6s;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.stat-card:hover::after {
+  transform: rotateZ(45deg) translateY(100%);
+}
